@@ -1,57 +1,75 @@
 import React, { ChangeEvent } from 'react';
 import './styles.css';
+import ListData from './ListData';
 
-type Props = '';
-type State = {
-  apiInfo: string;
-};
-class InputField extends React.Component<Props, State> {
+// interface Props {
+//   prop: string,
+// }
+
+interface State {
+  inputInfo: string;
+  dataInfo: [
+    {
+      id: number;
+      name: string;
+      img: string;
+    },
+  ];
+}
+
+class InputField extends React.Component<'', State> {
   constructor(props) {
     super(props);
     this.state = {
-      apiInfo: '',
+      inputInfo: '',
+      dataInfo: [],
     };
-    window.addEventListener('load', this.getLocalStorage);
-    this.getSearchOptions();
+    this.onInputChange = this.onInputChange.bind(this);
+    this.getSearchOptions = this.getSearchOptions.bind(this);
   }
 
-  getSearchOptions = () => {
-    fetch(
-      `https://rickandmortyapi.com/api/character/?name=${this.state.apiInfo}&page=1`
-    ).then((res) => res.json().then((data) => console.log(data)));
-    if (this.state.apiInfo) {
-      localStorage.setItem('state', this.state.apiInfo);
-      this.setState({ apiInfo: '' });
-    }
-  };
   onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ apiInfo: e.target.value.trim() });
+    e.preventDefault();
+    this.setState({
+      inputInfo: e.target.value.trim(),
+      dataInfo: this.state.dataInfo,
+    });
   };
-  getLocalStorage() {
-    if (localStorage.getItem('state')) {
-      const value = localStorage.getItem('state');
-      console.log(value);
-      this.setState({ apiInfo: value });
+  // async getSearchOptions(e: React.FormEvent) {
+  async getSearchOptions() {
+    try {
+      const response = await fetch(
+        `https://rickandmortyapi.com/api/character/?name=${this.state.inputInfo}&page=1`
+      );
+      const data = await response.json();
+      localStorage.setItem('state', this.state.inputInfo);
+      this.setState({
+        inputInfo: '',
+        dataInfo: data.results.map((elem) => [elem.id, elem.name, elem.image]),
+      });
+    } catch (e) {
+      console.log(e);
     }
-  }
-  componentDidMount() {
-    console.log('Здесь последняя команда');
   }
 
   render() {
+    console.log('Перезагружается');
     return (
-      <section className="input">
-        <input
-          type="text"
-          value={this.state.apiInfo}
-          placeholder="Enter a name"
-          className="input__box"
-          onChange={this.onInputChange}
-        />
-        <button className="input_submit" onClick={this.getSearchOptions}>
-          search
-        </button>
-      </section>
+      <>
+        <section className="input">
+          <input
+            type="text"
+            value={this.state.inputInfo}
+            placeholder="Enter a name"
+            className="input__box"
+            onChange={this.onInputChange}
+          />
+          <button className="input_submit" onClick={this.getSearchOptions}>
+            search
+          </button>
+        </section>
+        <ListData prop={this.state.dataInfo} />
+      </>
     );
   }
 }
