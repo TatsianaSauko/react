@@ -3,6 +3,8 @@ import React from 'react';
 import InputField from './components/InputField';
 import ListData from './components/ListData';
 
+type Props= '';
+
 interface State {
   dataInput: string;
   dataApi: ItemApi[];
@@ -15,7 +17,7 @@ interface ItemApi {
 }
 
 class App extends React.Component<'', State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       dataInput: '',
