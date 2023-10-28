@@ -1,23 +1,34 @@
 import React from 'react';
 
 interface Props {
-  prop: [
-    {
-      id: number;
-      name: string;
-      img: string;
-    },
-  ];
+  prop: ItemApi[];
 }
 
-class ListData extends React.Component<Props, ''> {
+interface ItemApi {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface State {
+  dataApi: ItemApi[];
+}
+
+class ListData extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      dataApi: this.props.prop,
+    };
+  }
+
   render() {
     return (
-      <ul key={Date.now()}>
+      <ul className="cards">
         {this.props.prop.map((item) => (
-          <li key={item[0]}>
-            <div>{item[1]}</div>
-            <img src={item[2]} />
+          <li key={item.id} className="card">
+            <div className="card__title">{item.name} </div>
+            <img src={item.image} />
           </li>
         ))}
       </ul>
