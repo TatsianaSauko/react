@@ -10,16 +10,9 @@ interface ItemApi {
   image: string;
 }
 
-interface State {
-  dataApi: ItemApi[];
-}
-
-class ListData extends React.Component<Props, State> {
+class ListData extends React.Component<Props, never> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      dataApi: this.props.prop,
-    };
   }
 
   render() {

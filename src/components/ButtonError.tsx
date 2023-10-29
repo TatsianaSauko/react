@@ -1,17 +1,28 @@
 import React from 'react';
 
-interface ButtonErrorProps {
-  clickButtonError: () => void;
+interface State {
+  hasError: boolean;
 }
 
-class ButtonError extends React.Component<ButtonErrorProps, never> {
-  constructor(props: ButtonErrorProps) {
+class ButtonError extends React.Component<{}, State> {
+  constructor(props: {}) {
     super(props);
+    this.state = {
+      hasError: false,
+    };
   }
+  clickButtonError = () => {
+    this.setState({ hasError: true });
+  };
 
+  componentDidUpdate() {
+    if (this.state.hasError) {
+      throw new Error('Oops!!!');
+    }
+  }
   render() {
     return (
-      <button className="button__error" onClick={this.props.clickButtonError}>
+      <button className="button__error" onClick={this.clickButtonError}>
         Error
       </button>
     );

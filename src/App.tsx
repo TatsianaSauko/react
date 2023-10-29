@@ -11,7 +11,7 @@ interface State {
   dataInput: string;
   dataApi: ItemApi[];
   isLoading: boolean;
-  isError: boolean;
+  hasError: boolean;
 }
 
 interface ItemApi {
@@ -27,9 +27,8 @@ class App extends React.Component<Props, State> {
       dataInput: '',
       dataApi: [],
       isLoading: false,
-      isError: false,
+      hasError: false,
     };
-    this.clickButtonError = this.clickButtonError.bind(this);
   }
 
   async getDate() {
@@ -55,17 +54,23 @@ class App extends React.Component<Props, State> {
     localStorage.setItem('state', this.state.dataInput);
     this.getDate();
   };
-  clickButtonError() {
+  clickButtonError = () => {
     this.setState({ dataInput: 'dfsdfsd' });
     localStorage.setItem('state', 'dfsdfsd');
     this.getDate();
+  };
+
+  componentDidUpdate() {
+    if (this.state.hasError) {
+      throw new Error('Oops!!!');
+    }
   }
 
   render() {
     return (
       <ErrorBoundary>
         <div className="App">
-          <ButtonError clickButtonError={this.clickButtonError} />
+          <ButtonError />
           <span className="head">The Rick and Morty API</span>
           <InputField
             setInfo={(data) => this.setState(data)}
