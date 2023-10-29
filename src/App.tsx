@@ -5,8 +5,6 @@ import ListData from './components/ListData';
 import ButtonError from './components/ButtonError';
 import ErrorBoundary from './components/ErrorBoundary';
 
-type Props = {};
-
 interface State {
   dataInput: string;
   dataApi: ItemApi[];
@@ -19,15 +17,12 @@ interface ItemApi {
   image: string;
 }
 
-class App extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      dataInput: '',
-      dataApi: [],
-      isLoading: false,
-    };
-  }
+class App extends React.Component<never, State> {
+  state = {
+    dataInput: '',
+    dataApi: [],
+    isLoading: false,
+  };
 
   async getDate() {
     this.setState({ isLoading: true });

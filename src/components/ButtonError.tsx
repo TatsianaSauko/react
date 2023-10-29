@@ -1,16 +1,16 @@
 import React from 'react';
 
+type Props = Record<string, never>;
+
 interface State {
   hasError: boolean;
 }
 
-class ButtonError extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      hasError: false,
-    };
-  }
+class ButtonError extends React.Component<Props, State> {
+  state = {
+    hasError: false,
+  };
+
   clickButtonError = () => {
     this.setState({ hasError: true });
   };

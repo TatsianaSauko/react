@@ -7,7 +7,7 @@ interface Props {
   handlerAdd: (e: React.FormEvent) => void;
 }
 
-class InputField extends React.Component<Props, {}> {
+class InputField extends React.Component<Props, never> {
   constructor(props: Props) {
     super(props);
   }
