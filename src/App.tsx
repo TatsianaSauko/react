@@ -5,6 +5,8 @@ import ListData from './components/ListData';
 import ButtonError from './components/ButtonError';
 import ErrorBoundary from './components/ErrorBoundary';
 
+type Props = Record<string, never>;
+
 interface State {
   dataInput: string;
   dataApi: ItemApi[];
@@ -17,7 +19,7 @@ interface ItemApi {
   image: string;
 }
 
-class App extends React.Component<never, State> {
+class App extends React.Component<Props, State> {
   state = {
     dataInput: '',
     dataApi: [],
