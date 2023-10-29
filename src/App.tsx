@@ -32,8 +32,9 @@ class App extends React.Component<Props, State> {
   async getDate() {
     this.setState({ isLoading: true });
     let response;
-    if (localStorage.getItem('state')) {
-      const value = localStorage.getItem('state');
+    const value = localStorage.getItem('state');
+    if (value) {
+      this.setState({ dataInput: value });
       response = await fetch(
         `https://rickandmortyapi.com/api/character/?name=${value}&page=1`
       );
@@ -42,7 +43,6 @@ class App extends React.Component<Props, State> {
     }
     const data = await response.json();
     this.setState({
-      dataInput: this.state.dataInput,
       dataApi: data.results,
       isLoading: false,
     });
@@ -64,6 +64,7 @@ class App extends React.Component<Props, State> {
           <ButtonError />
           <span className="head">The Rick and Morty API</span>
           <InputField
+            dataInput={this.state.dataInput}
             setInfo={(data) => this.setState(data)}
             handlerAdd={this.handlerAdd}
           />

@@ -2,20 +2,14 @@ import React from 'react';
 import './styles.css';
 
 interface Props {
+  dataInput: string;
   setInfo: React.Dispatch<React.SetStateAction<{ dataInput: string }>>;
   handlerAdd: (e: React.FormEvent) => void;
 }
 
-interface State {
-  dataInput: string;
-}
-
-class InputField extends React.Component<Props, State> {
+class InputField extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      dataInput: '',
-    };
   }
 
   render() {
@@ -23,6 +17,7 @@ class InputField extends React.Component<Props, State> {
       <form className="input" onSubmit={(e) => this.props.handlerAdd(e)}>
         <input
           type="input"
+          value={this.props.dataInput}
           placeholder="Enter a name..."
           className="input__box"
           onChange={(e) =>
