@@ -2,12 +2,16 @@ import './App.css';
 import React from 'react';
 import InputField from './components/InputField';
 import ListData from './components/ListData';
+import ButtonError from './components/ButtonError';
+import ErrorBoundary from './components/ErrorBoundary';
 
-type Props= '';
+type Props = {};
 
 interface State {
   dataInput: string;
   dataApi: ItemApi[];
+  isLoading: boolean;
+  isError: boolean;
 }
 
 interface ItemApi {
@@ -16,16 +20,20 @@ interface ItemApi {
   image: string;
 }
 
-class App extends React.Component<'', State> {
+class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       dataInput: '',
       dataApi: [],
+      isLoading: false,
+      isError: false,
     };
+    this.clickButtonError = this.clickButtonError.bind(this);
   }
 
   async getDate() {
+    this.setState({ isLoading: true });
     let value: string | null = this.state.dataInput.trim();
     if (localStorage.getItem('state')) {
       value = localStorage.getItem('state');
@@ -34,32 +42,44 @@ class App extends React.Component<'', State> {
       `https://rickandmortyapi.com/api/character/?name=${value}&page=1`
     );
     const data = await response.json();
-    this.setState({dataInput: this.state.dataInput,
-      dataApi: data.results,
-    });
-  }
+    this.setState({ dataInput: this.state.dataInput, dataApi: data.results });
 
+    this.setState({ isLoading: false });
+  }
   componentDidMount() {
     this.getDate();
   }
 
   handlerAdd = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(this.state.dataInput);
     localStorage.setItem('state', this.state.dataInput);
     this.getDate();
   };
+  clickButtonError() {
+    this.setState({ dataInput: 'dfsdfsd' });
+    localStorage.setItem('state', 'dfsdfsd');
+    this.getDate();
+  }
 
   render() {
     return (
-      <div className="App">
-        <span className="head">The Rick and Monty API</span>
-        <InputField
-          setInfo={(data) => this.setState(data)}
-          handlerAdd={this.handlerAdd}
-        />
-        <ListData prop={this.state.dataApi} />
-      </div>
+      <ErrorBoundary>
+        <div className="App">
+          <ButtonError clickButtonError={this.clickButtonError} />
+          <span className="head">The Rick and Morty API</span>
+          <InputField
+            setInfo={(data) => this.setState(data)}
+            handlerAdd={this.handlerAdd}
+          />
+          {this.state.isLoading ? (
+            <div className="loader__box">
+              <div className="loader"></div>
+            </div>
+          ) : (
+            <ListData prop={this.state.dataApi} />
+          )}
+        </div>
+      </ErrorBoundary>
     );
   }
 }

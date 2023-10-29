@@ -4,7 +4,7 @@ interface ButtonErrorProps {
   clickButtonError: () => void;
 }
 
-class ButtonError extends React.Component<ButtonErrorProps> {
+class ButtonError extends React.Component<ButtonErrorProps, never> {
   constructor(props: ButtonErrorProps) {
     super(props);
   }

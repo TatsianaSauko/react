@@ -92,10 +92,10 @@ li {
   background-color: rgb(243, 234, 234);
   border: solid 1px;
   cursor: pointer;
-  transition: all 2c ease-out;
+  transition: all 2s ease-out;
 }
 .button__error:hover {
-  transition: all 2c ease-out;
+  transition: all 2s ease-out;
   background-color: rgb(206, 146, 146);
 }
 
