@@ -11,7 +11,6 @@ interface State {
   dataInput: string;
   dataApi: ItemApi[];
   isLoading: boolean;
-  hasError: boolean;
 }
 
 interface ItemApi {
@@ -27,23 +26,26 @@ class App extends React.Component<Props, State> {
       dataInput: '',
       dataApi: [],
       isLoading: false,
-      hasError: false,
     };
   }
 
   async getDate() {
     this.setState({ isLoading: true });
-    let value: string | null = this.state.dataInput.trim();
+    let response;
     if (localStorage.getItem('state')) {
-      value = localStorage.getItem('state');
+      const value = localStorage.getItem('state');
+      response = await fetch(
+        `https://rickandmortyapi.com/api/character/?name=${value}&page=1`
+      );
+    } else {
+      response = await fetch(`https://rickandmortyapi.com/api/character/`);
     }
-    const response = await fetch(
-      `https://rickandmortyapi.com/api/character/?name=${value}&page=1`
-    );
     const data = await response.json();
-    this.setState({ dataInput: this.state.dataInput, dataApi: data.results });
-
-    this.setState({ isLoading: false });
+    this.setState({
+      dataInput: this.state.dataInput,
+      dataApi: data.results,
+      isLoading: false,
+    });
   }
   componentDidMount() {
     this.getDate();
@@ -54,17 +56,6 @@ class App extends React.Component<Props, State> {
     localStorage.setItem('state', this.state.dataInput);
     this.getDate();
   };
-  clickButtonError = () => {
-    this.setState({ dataInput: 'dfsdfsd' });
-    localStorage.setItem('state', 'dfsdfsd');
-    this.getDate();
-  };
-
-  componentDidUpdate() {
-    if (this.state.hasError) {
-      throw new Error('Oops!!!');
-    }
-  }
 
   render() {
     return (

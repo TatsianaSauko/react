@@ -25,7 +25,9 @@ class InputField extends React.Component<Props, State> {
           type="input"
           placeholder="Enter a name..."
           className="input__box"
-          onChange={(e) => this.props.setInfo({ dataInput: e.target.value })}
+          onChange={(e) =>
+            this.props.setInfo({ dataInput: e.target.value.trim() })
+          }
         />
         <button className="input_submit" type="submit">
           Search
