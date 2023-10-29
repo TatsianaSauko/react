@@ -4,6 +4,7 @@ import InputField from './components/InputField';
 import ListData from './components/ListData';
 import ButtonError from './components/ButtonError';
 import ErrorBoundary from './components/ErrorBoundary';
+import Loader from './components/Loader';
 
 type Props = Record<string, never>;
 
@@ -66,9 +67,7 @@ class App extends React.Component<Props, State> {
             handlerAdd={this.handlerAdd}
           />
           {this.state.isLoading ? (
-            <div className="loader__box">
-              <div className="loader"></div>
-            </div>
+            <Loader />
           ) : (
             <ListData prop={this.state.dataApi} />
           )}
