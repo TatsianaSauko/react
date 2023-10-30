@@ -1,32 +1,24 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
-type Props = Record<string, never>;
+const ButtonError: React.FC = () => {
+  const [hasError, setHasError] = useState(false);
 
-interface State {
-  hasError: boolean;
-}
-
-class ButtonError extends React.Component<Props, State> {
-  state = {
-    hasError: false,
+  const clickButtonError = () => {
+    setHasError(true);
   };
 
-  clickButtonError = () => {
-    this.setState({ hasError: true });
-  };
-
-  componentDidUpdate() {
-    if (this.state.hasError) {
+  useEffect(() => {
+    if (hasError) {
       throw new Error('Oops!!!');
     }
-  }
-  render() {
-    return (
-      <button className="button__error" onClick={this.clickButtonError}>
-        Error
-      </button>
-    );
-  }
-}
+  });
+
+  return (
+    <button className="button__error" onClick={clickButtonError}>
+      Error
+    </button>
+  );
+};
 
 export default ButtonError;
