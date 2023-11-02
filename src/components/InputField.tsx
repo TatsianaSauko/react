@@ -4,16 +4,16 @@ import './styles.css';
 interface Props {
   dataInput: string;
   setDataInput: React.Dispatch<React.SetStateAction<string>>;
-  handlerAdd: (e: React.FormEvent) => void;
+  handleAdd: (e: React.FormEvent) => void;
 }
 
 const InputField: React.FC<Props> = ({
   dataInput,
   setDataInput,
-  handlerAdd,
+  handleAdd,
 }) => {
   return (
-    <form className="input" onSubmit={(e) => handlerAdd(e)}>
+    <form className="input" onSubmit={(e) => handleAdd(e)}>
       <input
         type="input"
         value={dataInput}

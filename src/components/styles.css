@@ -100,6 +100,28 @@ li {
   background-color: rgb(206, 146, 146);
 }
 
+.select_block {
+  display: flex;
+  gap: 20px;
+  font-size: 24px;
+  padding-bottom: 15px;
+  align-self: flex-end;
+  padding-right: 60px;
+}
+.pagination__wrapper {
+  padding: 30px 0;
+}
+.button__pagination {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+.button__pagination-number {
+  width: 50px;
+  height: 50px;
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg) scale(1);
@@ -117,5 +139,13 @@ li {
   .input_submit {
     padding: 0 10px;
     font-size: 15px;
+  }
+  .button__error {
+    padding: 8px 13px;
+    font-size: 14px;
+    margin: 8px;
+  }
+  .head {
+    margin-top: 8px;
   }
 }
