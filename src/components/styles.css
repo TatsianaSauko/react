@@ -122,6 +122,31 @@ li {
   height: 50px;
 }
 
+.details__block {
+  display: flex;
+}
+
+.card__details {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.overlay {
+  cursor: pointer;
+}
+
+.button__close {
+  padding: 10px 20px;
+  display: block;
+  cursor: pointer;
+}
+
+.main-details {
+  display: flex;
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg) scale(1);

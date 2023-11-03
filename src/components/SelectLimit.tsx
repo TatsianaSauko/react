@@ -1,7 +1,6 @@
 import React from 'react';
 interface Props {
   value: number;
-  // addLimit: React.Dispatch<React.SetStateAction<number>>;
   changeLimit: (data: number) => void;
 }
 
@@ -13,9 +12,10 @@ const SelectLimit: React.FC<Props> = ({ value, changeLimit }) => {
         value={value}
         onChange={(e) => changeLimit(Number(e.target.value))}
       >
-        <option value="6">6</option>
-        <option value="12">12</option>
-        <option value="18">18</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="5">15</option>
+        <option value="20">20</option>
         <option value="25">25</option>
       </select>
     </div>
