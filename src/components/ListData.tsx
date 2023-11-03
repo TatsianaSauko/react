@@ -13,7 +13,7 @@ function ListData({ prop }: Props) {
         <Link key={item.mal_id} to={`/${item.mal_id}`}>
           <li key={item.mal_id} className="card">
             <div className="card__title">{item.title} </div>
-            <img src={item.images.jpg.image_url} />
+            <img src={item.images.jpg.image_url} alt={item.title} />
           </li>
         </Link>
       ))}

@@ -37,7 +37,7 @@ const Details: React.FC = () => {
             <div>season: {anime.season}</div>
             <div>year: {anime.year}</div>
             <div>source: {anime.source}</div>
-            <img src={anime.images.jpg.image_url} />
+            <img src={anime.images.jpg.image_url} alt={anime.title} />
             <button className="button__close" onClick={goBack}>
               Close
             </button>
