@@ -1,14 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import InputField from './InputField';
-import ListData from './ListData';
-import ButtonError from './ButtonError';
-import Loader from './Loader';
-import { ItemApi } from './types/types';
-import animeService from '../API/animeService';
-import SelectLimit from './SelectLimit';
-import Pagination from './Pagination';
-import { useNavigate, Outlet } from 'react-router-dom';
+import InputField from '../InputField';
+import ListData from '../ListData';
+import ButtonError from '../ButtonError';
+import Loader from '../Loader';
+import { ItemApi } from '../types/types';
+import animeService from '../../API/animeService';
+import SelectLimit from '../SelectLimit';
+import Pagination from '../Pagination';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 const MainPage: React.FC = () => {
   const [dataInput, setDataInput] = useState<string>(
@@ -19,9 +19,8 @@ const MainPage: React.FC = () => {
   const [lastVisiblePage, setLastVisiblePage] = useState<number>(4001);
   const [dataApi, setDataApi] = useState<ItemApi[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const navigatePage = useNavigate();
-  // const navigateBack = useNavigate();
-  // const goBack = () => navigateBack(-1);
+  const [searchParams, seatSearchParams] = useSearchParams();
+  console.log(searchParams);
 
   const getData = async () => {
     setIsLoading(true);
@@ -33,7 +32,7 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     getData();
-    navigatePage(`?page=${page}`);
+    seatSearchParams({ search: dataInput, limit: limit, page: page });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, page]);
 
@@ -41,6 +40,7 @@ const MainPage: React.FC = () => {
     e.preventDefault();
     setDataInput(dataInput.trim());
     localStorage.setItem('state', dataInput);
+    seatSearchParams({ search: dataInput, limit: limit, page: page });
     getData();
   };
 

@@ -1,18 +1,21 @@
 import './components/styles.css';
 import React from 'react';
-import MainPage from './components/MainPage';
+import MainPage from './components/pages/MainPage';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import Details from './components/Details';
+import Details, { animaDetailsLoader } from './components/Details';
+import NotFound from './components/pages/NotFound';
+import AnimeError from './components/pages/AnimeError';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<MainPage />}>
-      <Route path=":id" element={<Details />} />
+    <Route path="/" element={<MainPage />} errorElement={<AnimeError />}>
+      <Route path=":id" element={<Details />} loader={animaDetailsLoader} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

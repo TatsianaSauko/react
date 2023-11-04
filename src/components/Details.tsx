@@ -1,42 +1,45 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Loader from './Loader';
+import { useParams, useLoaderData, Link } from 'react-router-dom';
 
 const Details: React.FC = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [anime, setAnime] = useState(null);
-  const goBack = () => navigate(-1);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(`https://api.jikan.moe/v4/anime/${id}`)
-      .then((res) => res.json())
-      .then((data) => setAnime(data.data));
-    setIsLoading(false);
-  }, [id]);
+  const anime = useLoaderData();
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        anime && (
-          <div className="card__details">
-            <h2>Anime Details for {anime.title}</h2>
-            <div>season: {anime.season}</div>
-            <div>year: {anime.year}</div>
-            <div>source: {anime.source}</div>
-            <img src={anime.images.jpg.image_url} alt={anime.title} />
-            <button className="button__close" onClick={goBack}>
-              Close
-            </button>
+      {anime && (
+        <div className="card__details">
+          <h2>Anime Details for {anime.title}</h2>
+          <div>Number: {id}</div>
+          <div>Title_english: {anime.title_english}</div>
+          <div>
+            Title_synonyms:{' '}
+            {anime.title_synonyms.map((item, ind) => (
+              <div key={ind}>
+                {ind}: {item}
+              </div>
+            ))}
           </div>
-        )
+          <div>Season: {anime.season}</div>
+          <div>Year: {anime.year}</div>
+          <div>Source: {anime.source}</div>
+          <img src={anime.images.jpg.image_url} alt={anime.title} />
+          <Link to="/">
+            <button className="button__close">Close</button>
+          </Link>
+        </div>
       )}
     </>
   );
+};
+
+export const animaDetailsLoader = async ({ params }) => {
+  const { id } = params;
+  const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
+  if (!res.ok) {
+    throw Error('Could not fetch that anime');
+  }
+  const data = await res.json();
+  return data.data;
 };
 export default Details;
