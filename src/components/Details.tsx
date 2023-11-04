@@ -1,17 +1,14 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import MainPage from './MainPage';
 import Loader from './Loader';
 
 const Details: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  //
   const [anime, setAnime] = useState(null);
-  const goBack = () => navigate(-2);
-  console.log(id);
+  const goBack = () => navigate(-1);
 
   useEffect(() => {
     setIsLoading(true);
@@ -22,18 +19,13 @@ const Details: React.FC = () => {
   }, [id]);
 
   return (
-    <div className="details__block">
-      <div className="overlay" onClick={goBack}>
-        <MainPage />
-      </div>
-
+    <>
       {isLoading ? (
         <Loader />
       ) : (
         anime && (
           <div className="card__details">
             <h2>Anime Details for {anime.title}</h2>
-            <div>url: {anime.url}</div>
             <div>season: {anime.season}</div>
             <div>year: {anime.year}</div>
             <div>source: {anime.source}</div>
@@ -44,7 +36,7 @@ const Details: React.FC = () => {
           </div>
         )
       )}
-    </div>
+    </>
   );
 };
 export default Details;
