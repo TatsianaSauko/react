@@ -1,20 +1,20 @@
 import './components/styles.css';
 import React from 'react';
-import MainPage from './components/pages/MainPage';
+import MainPage from './pages/MainPage';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import Details, { animaDetailsLoader } from './components/Details';
-import NotFound from './components/pages/NotFound';
-import AnimeError from './components/pages/AnimeError';
+import Details, { animeDetailsLoader } from './components/Details';
+import NotFound from './pages/NotFound';
+import AnimeError from './pages/AnimeError';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<MainPage />} errorElement={<AnimeError />}>
-      <Route path=":id" element={<Details />} loader={animaDetailsLoader} />
+      <Route path=":id" element={<Details />} loader={animeDetailsLoader} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

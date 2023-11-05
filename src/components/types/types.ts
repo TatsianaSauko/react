@@ -1,6 +1,6 @@
 export interface ItemApi {
   mal_id: number;
-  title_english: string;
+  title: string;
   images: {
     jpg: {
       image_url: string;

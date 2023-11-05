@@ -1,9 +1,41 @@
-import React from 'react';
-import { useParams, useLoaderData, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {
+  useParams,
+  useLoaderData,
+  useNavigate,
+  LoaderFunctionArgs,
+  useOutletContext,
+} from 'react-router-dom';
+
+interface IAnime {
+  title: string;
+  title_english: string;
+  title_synonyms: string[];
+  season: string;
+  year: number;
+  source: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+}
 
 const Details: React.FC = () => {
+  const setGoBack =
+    useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
   const { id } = useParams();
-  const anime = useLoaderData();
+  const anime = useLoaderData() as IAnime;
+  const navigate = useNavigate();
+  const goBack = () => {
+    setGoBack(false);
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    setGoBack(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -24,16 +56,18 @@ const Details: React.FC = () => {
           <div>Year: {anime.year}</div>
           <div>Source: {anime.source}</div>
           <img src={anime.images.jpg.image_url} alt={anime.title} />
-          <Link to="/">
-            <button className="button__close">Close</button>
-          </Link>
+          <button className="button__close" onClick={goBack}>
+            Close
+          </button>
         </div>
       )}
     </>
   );
 };
 
-export const animaDetailsLoader = async ({ params }) => {
+export const animeDetailsLoader = async ({
+  params,
+}: LoaderFunctionArgs): Promise<IAnime> => {
   const { id } = params;
   const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
   if (!res.ok) {
@@ -42,4 +76,5 @@ export const animaDetailsLoader = async ({ params }) => {
   const data = await res.json();
   return data.data;
 };
+
 export default Details;
