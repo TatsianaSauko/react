@@ -1,10 +1,7 @@
 import React from 'react';
-interface Props {
-  value: number;
-  changeLimit: (data: number) => void;
-}
+import { PropsSelect } from '../types/types';
 
-const SelectLimit: React.FC<Props> = ({ value, changeLimit }) => {
+const SelectLimit: React.FC<PropsSelect> = ({ value, changeLimit }) => {
   return (
     <div className="select_block">
       <div>Show cards: </div>

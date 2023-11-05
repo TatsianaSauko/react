@@ -1,12 +1,11 @@
 import React from 'react';
+import { PropsPagination } from '../types/types';
 
-interface Props {
-  page: number;
-  lastVisiblePage: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const Pagination: React.FC<Props> = ({ page, lastVisiblePage, setPage }) => {
+const Pagination: React.FC<PropsPagination> = ({
+  page,
+  lastVisiblePage,
+  setPage,
+}) => {
   return (
     <div className="pagination__wrapper">
       {page === 1 ? (

@@ -1,4 +1,4 @@
-import { ItemApi, ResponsePagination } from '../components/types/types';
+import { ItemApi, ResponsePagination } from '../types/types';
 const animeService = async (
   value: string = '',
   numberPage: number,

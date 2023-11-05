@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { IAnime } from '../types/types';
 import {
   useParams,
   useLoaderData,
@@ -6,20 +7,6 @@ import {
   LoaderFunctionArgs,
   useOutletContext,
 } from 'react-router-dom';
-
-interface IAnime {
-  title: string;
-  title_english: string;
-  title_synonyms: string[];
-  season: string;
-  year: number;
-  source: string;
-  images: {
-    jpg: {
-      image_url: string;
-    };
-  };
-}
 
 const Details: React.FC = () => {
   const setGoBack =

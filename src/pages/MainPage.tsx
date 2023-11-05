@@ -4,7 +4,7 @@ import InputField from '../components/InputField';
 import ListData from '../components/ListData';
 import ButtonError from '../components/ButtonError';
 import Loader from '../components/Loader';
-import { ItemApi } from '../components/types/types';
+import { ItemApi } from '../types/types';
 import animeService from '../API/animeService';
 import SelectLimit from '../components/SelectLimit';
 import Pagination from '../components/Pagination';

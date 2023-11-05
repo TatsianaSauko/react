@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemApi } from './types/types';
+import { ItemApi } from '../types/types';
 import { Link } from 'react-router-dom';
 
 interface Props {
