@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { useState, useEffect } from 'react';
-import InputField from '../components/InputField';
-import ListData from '../components/ListData';
+import InputField from '../components/InputField/InputField';
+import ListData from '../components/ListData/ListData';
 import ButtonError from '../components/ButtonError';
 import Loader from '../components/Loader';
 import { ItemApi } from '../types/types';
 import animeService from '../API/animeService';
 import SelectLimit from '../components/SelectLimit';
-import Pagination from '../components/Pagination';
+import Pagination from '../components/Pagination/Pagination';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
-
+interface ISearchContext {
+  dataInput: string;
+  setDataInput: React.Dispatch<React.SetStateAction<string>>;
+  dataApi: ItemApi[];
+}
+export const SearchContext = createContext<ISearchContext>({
+  dataInput: '',
+  setDataInput: () => {},
+  dataApi: [],
+});
 const MainPage: React.FC = () => {
   const [searchParams, seatSearchParams] = useSearchParams();
   const [dataInput, setDataInput] = useState<string>(
@@ -24,7 +33,7 @@ const MainPage: React.FC = () => {
   const [lastVisiblePage, setLastVisiblePage] = useState<number>(4001);
   const [dataApi, setDataApi] = useState<ItemApi[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [goBack, setGoBack] = useState<boolean>(false);
+  const [isClose, setIsClose] = useState<boolean>(false);
   const navigate = useNavigate();
   let rootClasses = 'main';
 
@@ -55,47 +64,45 @@ const MainPage: React.FC = () => {
     setPage(1);
   };
   const closePage = () => {
-    if (goBack) {
+    if (isClose) {
       navigate(-1);
-      setGoBack(false);
+      setIsClose(false);
     }
   };
 
-  if (goBack) {
+  if (isClose) {
     rootClasses = 'main overlay';
   } else {
     rootClasses = 'main';
   }
 
   return (
-    <div className="app">
-      <div onClick={closePage}>
-        <div className={`${rootClasses}`}>
-          <ButtonError />
-          <span className="head">Anime</span>
+    <SearchContext.Provider value={{ dataInput, setDataInput, dataApi }}>
+      <div className="app">
+        <div onClick={closePage}>
+          <div className={`${rootClasses}`}>
+            <ButtonError />
+            <span className="head">Anime</span>
 
-          <InputField
-            dataInput={dataInput}
-            setDataInput={setDataInput}
-            handleAdd={handleAdd}
-          />
+            <InputField handleAdd={handleAdd} />
 
-          <SelectLimit
-            value={limit}
-            changeLimit={(data) => changeLimit(data)}
-          />
-          {isLoading ? <Loader /> : <ListData prop={dataApi} />}
+            <SelectLimit
+              value={limit}
+              changeLimit={(data) => changeLimit(data)}
+            />
+            {isLoading ? <Loader /> : <ListData />}
 
-          <Pagination
-            page={page}
-            lastVisiblePage={lastVisiblePage}
-            setPage={setPage}
-          />
+            <Pagination
+              page={page}
+              lastVisiblePage={lastVisiblePage}
+              setPage={setPage}
+            />
+          </div>
         </div>
-      </div>
 
-      <Outlet context={setGoBack} />
-    </div>
+        <Outlet context={setIsClose} />
+      </div>
+    </SearchContext.Provider>
   );
 };
 

@@ -8,6 +8,14 @@ export interface ItemApi {
   };
 }
 
+// export interface AnimeState {
+//   dataInput: string,
+// 	dataApi: ItemApi[],
+// 	page: number,
+// 	limit: number,
+//   last_visible_page: number;
+// }
+
 export interface ResponsePagination {
   items: {
     total: number;

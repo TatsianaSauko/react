@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropsPagination } from '../types/types';
+import { PropsPagination } from '../../types/types';
 
 const Pagination: React.FC<PropsPagination> = ({
   page,

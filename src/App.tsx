@@ -7,7 +7,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import Details, { animeDetailsLoader } from './components/Details';
+import Details, { animeDetailsLoader } from './components/Details/Details';
 import NotFound from './pages/NotFound';
 import AnimeError from './pages/AnimeError';
 

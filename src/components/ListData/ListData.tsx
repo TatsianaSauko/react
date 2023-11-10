@@ -1,16 +1,13 @@
-import React from 'react';
-import { ItemApi } from '../types/types';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { SearchContext } from '../../pages/MainPage';
 
-interface Props {
-  prop: ItemApi[];
-}
-
-function ListData({ prop }: Props) {
+function ListData() {
+  const { dataApi } = useContext(SearchContext);
   return (
     <ul className="cards">
-      {prop.length ? (
-        prop.map((item) => (
+      {dataApi.length ? (
+        dataApi.map((item) => (
           <Link key={item.mal_id} to={`${item.mal_id.toString()}`}>
             <li key={item.mal_id} className="card">
               <div className="card__title">{item.title} </div>

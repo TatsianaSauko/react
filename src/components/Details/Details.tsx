@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IAnime } from '../types/types';
+import { IAnime } from '../../types/types';
 import {
   useParams,
   useLoaderData,
@@ -9,18 +9,18 @@ import {
 } from 'react-router-dom';
 
 const Details: React.FC = () => {
-  const setGoBack =
+  const setIsClose =
     useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
   const { id } = useParams();
   const anime = useLoaderData() as IAnime;
   const navigate = useNavigate();
   const goBack = () => {
-    setGoBack(false);
+    setIsClose(false);
     navigate(-1);
   };
 
   useEffect(() => {
-    setGoBack(true);
+    setIsClose(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

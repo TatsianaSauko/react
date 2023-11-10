@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { SearchContext } from '../../pages/MainPage';
 
 interface Props {
-  dataInput: string;
-  setDataInput: React.Dispatch<React.SetStateAction<string>>;
   handleAdd: (e: React.FormEvent) => void;
 }
 
-const InputField: React.FC<Props> = ({
-  dataInput,
-  setDataInput,
-  handleAdd,
-}) => {
+const InputField: React.FC<Props> = ({ handleAdd }) => {
+  const { dataInput, setDataInput } = useContext(SearchContext);
   return (
     <form className="input" onSubmit={(e) => handleAdd(e)}>
       <input
