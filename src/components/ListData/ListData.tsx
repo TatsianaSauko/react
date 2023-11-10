@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { SearchContext } from '../../pages/MainPage';
+import { SearchContext } from '../../pages/MainPage/MainPage';
 
 function ListData() {
   const { dataApi } = useContext(SearchContext);

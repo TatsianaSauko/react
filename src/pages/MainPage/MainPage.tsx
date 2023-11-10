@@ -1,13 +1,13 @@
 import React, { createContext } from 'react';
 import { useState, useEffect } from 'react';
-import InputField from '../components/InputField/InputField';
-import ListData from '../components/ListData/ListData';
-import ButtonError from '../components/ButtonError';
-import Loader from '../components/Loader';
-import { ItemApi } from '../types/types';
-import animeService from '../API/animeService';
-import SelectLimit from '../components/SelectLimit';
-import Pagination from '../components/Pagination/Pagination';
+import InputField from '../../components/InputField/InputField';
+import ListData from '../../components/ListData/ListData';
+import ButtonError from '../../components/ButtonError/ButtonError';
+import Loader from '../../components/ButtonError/ButtonError';
+import { ItemApi } from '../../types/types';
+import animeService from '../../API/animeService';
+import SelectLimit from '../../components/SelectLimit/SelectLimit';
+import Pagination from '../../components/Pagination/Pagination';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 interface ISearchContext {
   dataInput: string;

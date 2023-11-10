@@ -1,6 +1,6 @@
 import './components/styles.css';
 import React from 'react';
-import MainPage from './pages/MainPage';
+import MainPage from './pages/MainPage/MainPage';
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Details, { animeDetailsLoader } from './components/Details/Details';
 import NotFound from './pages/NotFound';
-import AnimeError from './pages/AnimeError';
+import AnimeError from './pages/AnimeError/AnimeError';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

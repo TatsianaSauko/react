@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SearchContext } from '../../pages/MainPage';
+import { SearchContext } from '../../pages/MainPage/MainPage';
 
 interface Props {
   handleAdd: (e: React.FormEvent) => void;

@@ -1,7 +1,7 @@
 import { expect, it, describe } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import ListData from './ListData';
-import { SearchContext } from '../../pages/MainPage';
+import { SearchContext } from '../../pages/MainPage/MainPage';
 import { BrowserRouter } from 'react-router-dom';
 
 // describe('ListData component', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropsSelect } from '../types/types';
+import { PropsSelect } from '../../types/types';
 
 const SelectLimit: React.FC<PropsSelect> = ({ value, changeLimit }) => {
   return (
