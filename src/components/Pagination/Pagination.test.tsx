@@ -1,11 +1,14 @@
 import { expect, it, describe, vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import Pagination from './Pagination';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('Pagination', () => {
   it('should render without crashing', () => {
     const { getByText } = render(
-      <Pagination page={1} lastVisiblePage={5} setPage={() => {}} />
+      <MemoryRouter>
+        <Pagination page={1} lastVisiblePage={5} setPage={() => {}} />
+      </MemoryRouter>
     );
     expect(getByText('1')).toBeInTheDocument();
   });
@@ -17,6 +20,9 @@ describe('Pagination', () => {
     );
     fireEvent.click(getByText('>'));
     expect(setPage).toHaveBeenCalledWith(2);
+    // const searchParams = new URLSearchParams(location.search);
+    // const page = searchParams.get('page');
+    // expect(page).toBe(2);
   });
 
   it('should call setPage with correct value when previous page button is clicked', () => {
