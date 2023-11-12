@@ -1,6 +1,8 @@
 import { expect, it, describe, vi } from 'vitest';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import Pagination from './Pagination';
+import MainPage from '../../pages/MainPage/MainPage';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Pagination', () => {
   it('should render without crashing', () => {
@@ -42,5 +44,20 @@ describe('Pagination', () => {
       <Pagination page={1} lastVisiblePage={5} setPage={setPage} />
     );
     expect(getByText('<')).toBeDisabled();
+  });
+
+  test('updates URL search param on page change', async () => {
+    const { getByText } = render(
+      <Router>
+        <MainPage />
+      </Router>
+    );
+    expect(window.location.search).toBe('?search=&limit=5&page=1');
+    const nextPageButton = getByText('>');
+    fireEvent.click(nextPageButton);
+
+    await waitFor(() => {
+      expect(window.location.search).toBe('?search=&limit=5&page=2');
+    });
   });
 });

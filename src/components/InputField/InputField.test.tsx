@@ -1,16 +1,18 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import InputField from './InputField';
 
 describe('InputField', () => {
   it('calls handleAdd when submitted', async () => {
     const handleAddMock = vi.fn();
-    render(<InputField handleAdd={handleAddMock} />);
-    const input = screen.getByPlaceholderText('Enter a name...');
-    const submitButton = screen.getByText('Search');
+    const { getByRole, getByPlaceholderText } = render(
+      <InputField handleAdd={handleAddMock} />
+    );
+    const input = getByPlaceholderText('Enter a name...');
+    const button = getByRole('button');
     await userEvent.type(input, 'John Doe');
-    await userEvent.click(submitButton);
+    await fireEvent.submit(button);
     expect(handleAddMock).toHaveBeenCalledTimes(1);
   });
 });
