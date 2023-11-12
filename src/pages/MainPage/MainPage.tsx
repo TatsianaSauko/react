@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import InputField from '../../components/InputField/InputField';
 import ListData from '../../components/ListData/ListData';
 import ButtonError from '../../components/ButtonError/ButtonError';
-import Loader from '../../components/ButtonError/ButtonError';
+import Loader from '../../components/Loader';
 import { ItemApi } from '../../types/types';
 import animeService from '../../API/animeService';
 import SelectLimit from '../../components/SelectLimit/SelectLimit';
@@ -36,7 +36,6 @@ const MainPage: React.FC = () => {
   const [isClose, setIsClose] = useState<boolean>(false);
   const navigate = useNavigate();
   let rootClasses = 'main';
-
   const getData = async () => {
     setIsLoading(true);
     const [data, pagination] = await animeService(dataInput, page, limit);
@@ -44,13 +43,11 @@ const MainPage: React.FC = () => {
     setLastVisiblePage(pagination.last_visible_page);
     setIsLoading(false);
   };
-
   useEffect(() => {
     getData();
     seatSearchParams({ search: dataInput, limit: `${limit}`, page: `${page}` });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, page]);
-
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
     setDataInput(dataInput.trim());
@@ -58,7 +55,6 @@ const MainPage: React.FC = () => {
     seatSearchParams({ search: dataInput, limit: `${limit}`, page: `${page}` });
     getData();
   };
-
   const changeLimit = (data: number) => {
     setLimit(data);
     setPage(1);
@@ -69,29 +65,25 @@ const MainPage: React.FC = () => {
       setIsClose(false);
     }
   };
-
   if (isClose) {
     rootClasses = 'main overlay';
   } else {
     rootClasses = 'main';
   }
-
   return (
     <SearchContext.Provider value={{ dataInput, setDataInput, dataApi }}>
       <div className="app">
         <div onClick={closePage}>
           <div className={`${rootClasses}`}>
+            {' '}
             <ButtonError />
             <span className="head">Anime</span>
-
             <InputField handleAdd={handleAdd} />
-
             <SelectLimit
               value={limit}
               changeLimit={(data) => changeLimit(data)}
             />
             {isLoading ? <Loader /> : <ListData />}
-
             <Pagination
               page={page}
               lastVisiblePage={lastVisiblePage}
@@ -99,7 +91,6 @@ const MainPage: React.FC = () => {
             />
           </div>
         </div>
-
         <Outlet context={setIsClose} />
       </div>
     </SearchContext.Provider>

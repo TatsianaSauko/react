@@ -16,5 +16,6 @@ export default defineConfig({
     css: true,
     setupFiles: './src/test/setup.ts',
     include: ['**/*.test.{ts,tsx}'],
+    watch: false,
   },
 });

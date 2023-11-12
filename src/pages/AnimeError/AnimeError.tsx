@@ -1,5 +1,5 @@
 import { Link, useRouteError } from 'react-router-dom';
-import { IError } from '../types/types';
+import { IError } from '../../types/types';
 
 export default function AnimeError() {
   const error = useRouteError() as IError;

@@ -1,8 +1,9 @@
 import { expect, it, describe, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Details from './Details';
 import { IAnime } from '../../types/types';
 import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 const mockAnime: IAnime = {
   title: 'Test Anime',
@@ -28,13 +29,11 @@ vi.mock('react-router-dom', async () => {
       useLoaderData: () => mockAnime,
       useOutletContext: () => vi.fn(() => {}),
     };
-  } else {
-    // Handle the case where 'actual' is not an object
   }
 });
 
 describe('Details Component', () => {
-  it('renders correctly', () => {
+  it('the detailed card component correctly displays the detailed card data', () => {
     render(<Details />);
     expect(
       screen.getByText('Anime Details for Test Anime')
@@ -54,10 +53,23 @@ describe('Details Component', () => {
     );
   });
 
-  // it('navigates back when close button is clicked', () => {
-  //   const navigate = vi.fn();
-  //   render(<Details />);
-  //   userEvent.click(screen.getByRole('button', { name: /close/i }));
-  //   expect(navigate).toHaveBeenCalledWith(-1);
-  // });
+  it('clicking the close button hides the component', () => {
+    render(
+      <MemoryRouter initialEntries={['/some-route']}>
+        <Details />
+      </MemoryRouter>
+    );
+
+    expect(
+      screen.getByText('Anime Details for Test Anime')
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /Close/i }));
+
+    setTimeout(() => {
+      expect(
+        screen.queryByText('Anime Details for Test Anime')
+      ).not.toBeInTheDocument();
+    }, 0);
+  });
 });

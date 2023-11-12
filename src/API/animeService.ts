@@ -11,7 +11,7 @@ const animeService = async (
     throw Error('Could not fetch that anime');
   }
   const data = await response.json();
-  console.log(data.data, data.pagination);
+  // console.log(data.data, data.pagination);
   return [data.data, data.pagination];
 };
 

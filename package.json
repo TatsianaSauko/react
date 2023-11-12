@@ -11,7 +11,8 @@
     "format:fix": "npx prettier --write .",
     "preview": "vite preview",
     "prepare": "husky install",
-    "test": "vitest",
+    "test": "vitest --watch",
+    "testOnce": "vitest",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
