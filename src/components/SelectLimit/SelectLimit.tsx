@@ -1,13 +1,21 @@
 import React from 'react';
-import { PropsSelect } from '../../types/types';
+import { useAppSelector } from '../../hooks/redux';
+import { useActions } from '../../hooks/actions';
 
-const SelectLimit: React.FC<PropsSelect> = ({ value, changeLimit }) => {
+const SelectLimit: React.FC = () => {
+  const { limit } = useAppSelector((state) => state.anime);
+  const { changeLimit, changePage } = useActions();
+
+  const clickLimit = (data: number) => {
+    changeLimit(data);
+    changePage(1);
+  };
   return (
     <div className="select_block">
       <div>Show cards: </div>
       <select
-        value={value}
-        onChange={(e) => changeLimit(Number(e.target.value))}
+        value={limit}
+        onChange={(e) => clickLimit(Number(e.target.value))}
       >
         <option value="5">5</option>
         <option value="10">10</option>

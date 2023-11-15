@@ -1,23 +1,23 @@
 import React from 'react';
-import { PropsPagination } from '../../types/types';
+import { useAppSelector } from '../../hooks/redux';
+import { useActions } from '../../hooks/actions';
 
-const Pagination: React.FC<PropsPagination> = ({
-  page,
-  lastVisiblePage,
-  setPage,
-}) => {
+const Pagination: React.FC = () => {
+  const { page, lastVisiblePage } = useAppSelector((state) => state.anime);
+  const { changePage } = useActions();
+
   return (
     <div className="pagination__wrapper">
       {page === 1 ? (
         <button
           disabled
           className="button__pagination"
-          onClick={() => setPage(1)}
+          onClick={() => changePage(1)}
         >
           &lt;&lt;
         </button>
       ) : (
-        <button className="button__pagination" onClick={() => setPage(1)}>
+        <button className="button__pagination" onClick={() => changePage(1)}>
           &lt;&lt;
         </button>
       )}
@@ -25,14 +25,14 @@ const Pagination: React.FC<PropsPagination> = ({
         <button
           disabled
           className="button__pagination"
-          onClick={() => setPage(page - 1)}
+          onClick={() => changePage(page - 1)}
         >
           &lt;
         </button>
       ) : (
         <button
           className="button__pagination"
-          onClick={() => setPage(page - 1)}
+          onClick={() => changePage(page - 1)}
         >
           &lt;
         </button>
@@ -42,14 +42,14 @@ const Pagination: React.FC<PropsPagination> = ({
         <button
           disabled
           className="button__pagination"
-          onClick={() => setPage(page + 1)}
+          onClick={() => changePage(page + 1)}
         >
           &gt;
         </button>
       ) : (
         <button
           className="button__pagination"
-          onClick={() => setPage(page + 1)}
+          onClick={() => changePage(page + 1)}
         >
           &gt;
         </button>
@@ -58,14 +58,14 @@ const Pagination: React.FC<PropsPagination> = ({
         <button
           disabled
           className="button__pagination"
-          onClick={() => setPage(lastVisiblePage)}
+          onClick={() => changePage(lastVisiblePage)}
         >
           &gt;&gt;
         </button>
       ) : (
         <button
           className="button__pagination"
-          onClick={() => setPage(lastVisiblePage)}
+          onClick={() => changePage(lastVisiblePage)}
         >
           &gt;&gt;
         </button>

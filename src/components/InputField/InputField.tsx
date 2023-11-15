@@ -1,20 +1,25 @@
-import React, { useContext } from 'react';
-import { SearchContext } from '../../pages/MainPage/MainPage';
+import React, { useState } from 'react';
+import { useAppSelector } from '../../hooks/redux';
+import { useActions } from '../../hooks/actions';
 
-interface Props {
-  handleAdd: (e: React.FormEvent) => void;
-}
+const InputField: React.FC = () => {
+  const { dataInput } = useAppSelector((state) => state.anime);
+  const { changeDataInput } = useActions();
+  const [input, setInput] = useState<string>(dataInput);
 
-const InputField: React.FC<Props> = ({ handleAdd }) => {
-  const { dataInput, setDataInput } = useContext(SearchContext);
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    changeDataInput(input.trim());
+  };
+
   return (
     <form className="input" onSubmit={(e) => handleAdd(e)}>
       <input
         type="input"
-        value={dataInput}
+        value={input}
         placeholder="Enter a name..."
         className="input__box"
-        onChange={(e) => setDataInput(e.target.value)}
+        onChange={(e) => setInput(e.target.value)}
       />
       <button className="input_submit" type="submit">
         Search

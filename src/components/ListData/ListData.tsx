@@ -1,9 +1,9 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { SearchContext } from '../../pages/MainPage/MainPage';
+import { useAppSelector } from '../../hooks/redux';
 
 function ListData() {
-  const { dataApi } = useContext(SearchContext);
+  const { dataApi } = useAppSelector((state) => state.anime);
+
   return (
     <ul className="cards">
       {dataApi.length ? (
