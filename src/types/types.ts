@@ -8,12 +8,27 @@ export interface Params {
   page: number;
 }
 
+export interface DataAnimeId {
+  title: string;
+  title_english: string;
+  title_synonyms: string[];
+  season: string;
+  year: number;
+  source: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+}
+
 export interface AnimeState {
   dataInput: string;
   limit: number;
   page: number;
   lastVisiblePage: number;
   dataApi: DataAnime[];
+  dataId: DataAnimeId;
 }
 
 export interface ResponseAnimeId {

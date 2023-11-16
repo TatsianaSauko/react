@@ -3,6 +3,7 @@ import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { useGetAnimeIdQuery } from '../../store/anime/anime.api';
 import Loader from '../Loader';
 import AnimeError from '../../pages/AnimeError/AnimeError';
+import { useActions } from '../../hooks/actions';
 
 const Details: React.FC = () => {
   const setIsClose =
@@ -10,6 +11,7 @@ const Details: React.FC = () => {
   const { id = '' } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, isError } = useGetAnimeIdQuery(id);
+  const { changeDataId } = useActions();
 
   const goBack = () => {
     setIsClose(false);
@@ -18,6 +20,9 @@ const Details: React.FC = () => {
 
   useEffect(() => {
     setIsClose(true);
+    if (data) {
+      changeDataId(data);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);

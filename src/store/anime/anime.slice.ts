@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AnimeState, DataAnime } from '../../types/types';
+import { AnimeState, DataAnime, DataAnimeId } from '../../types/types';
 
 const initialState: AnimeState = {
   dataInput: '',
@@ -7,6 +7,19 @@ const initialState: AnimeState = {
   page: 1,
   lastVisiblePage: 4001,
   dataApi: [],
+  dataId: {
+    title: '',
+    title_english: '',
+    title_synonyms: [],
+    season: '',
+    year: 0,
+    source: '',
+    images: {
+      jpg: {
+        image_url: '',
+      },
+    },
+  },
 };
 
 export const AnimeSlice = createSlice({
@@ -27,6 +40,9 @@ export const AnimeSlice = createSlice({
     },
     changeDataApi(state, action: PayloadAction<DataAnime[]>) {
       state.dataApi = action.payload;
+    },
+    changeDataId(state, action: PayloadAction<DataAnimeId>) {
+      state.dataId = action.payload;
     },
   },
 });
