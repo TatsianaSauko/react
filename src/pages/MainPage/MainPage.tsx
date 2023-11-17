@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import InputField from '../../components/InputField/InputField';
 import ListData from '../../components/ListData/ListData';
 import ButtonError from '../../components/ButtonError/ButtonError';
-import Loader from '../../components/Loader';
+import Loader from '../../components/Loader/Loader';
 import SelectLimit from '../../components/SelectLimit/SelectLimit';
 import Pagination from '../../components/Pagination/Pagination';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
@@ -12,21 +12,22 @@ import { useAppSelector } from '../../hooks/redux';
 import AnimeError from '../AnimeError/AnimeError';
 
 const MainPage: React.FC = () => {
-  const { dataInput, limit, page } = useAppSelector((state) => state.anime);
+  const { dataInput, limit, page, isLoadingList } = useAppSelector(
+    (state) => state.anime
+  );
 
-  const { changeLastVisiblePage, changeDataApi } = useActions();
+  const { changeLastVisiblePage, changeDataApi, changeLoadingList } =
+    useActions();
 
   const [, seatSearchParams] = useSearchParams();
-
-  const [isClose, setIsClose] = useState<boolean>(false);
-  const navigate = useNavigate();
-
-  const { data, isLoading, isError } = useGetAnimeQuery({
+  const { data, isFetching, isError } = useGetAnimeQuery({
     dataInput,
     limit,
     page,
   });
-
+  // changeLoadingList(isFetching);
+  const [isClose, setIsClose] = useState<boolean>(false);
+  const navigate = useNavigate();
   useEffect(() => {
     if (data?.data) {
       changeDataApi(data?.data);
@@ -35,7 +36,8 @@ const MainPage: React.FC = () => {
       changeLastVisiblePage(data?.lastVisiblePage);
     }
     seatSearchParams({ page: `${page}` });
-
+    changeLoadingList(isFetching);
+    // changeLoadingList(isFetching);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
@@ -58,7 +60,7 @@ const MainPage: React.FC = () => {
               <span className="head">Anime</span>
               <InputField />
               <SelectLimit />
-              {isLoading ? <Loader /> : <ListData />}
+              {isLoadingList ? <Loader /> : <ListData />}
               <Pagination />
             </div>
           </div>

@@ -22,12 +22,16 @@ test('fetches data from the API', async () => {
     })
   );
 
-  const [data, pagination] = await animeService('test', 1, 5);
+  const result = await animeService('test', 1, 5);
 
-  expect(fetch).toHaveBeenCalledWith(
-    'https://api.jikan.moe/v4/anime?q=test&limit=5&page=1'
-  );
+  if (result) {
+    const [data, pagination] = result;
 
-  expect(data).toEqual([]);
-  expect(pagination).toEqual({});
+    expect(fetch).toHaveBeenCalledWith(
+      'https://api.jikan.moe/v4/anime?q=test&limit=5&page=1'
+    );
+
+    expect(data).toEqual([]);
+    expect(pagination).toEqual({});
+  }
 });

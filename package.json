@@ -59,5 +59,8 @@
       "npm run lint:fix",
       "npm run format:fix"
     ]
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

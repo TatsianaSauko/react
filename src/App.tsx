@@ -9,7 +9,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import Details from './components/Details/Details';
-import NotFound from './pages/NotFound';
+import NotFound from './pages/NotFound/NotFound';
 import AnimeError from './pages/AnimeError/AnimeError';
 
 const router = createBrowserRouter(

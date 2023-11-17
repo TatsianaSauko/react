@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { useGetAnimeIdQuery } from '../../store/anime/anime.api';
-import Loader from '../Loader';
+import Loader from '../Loader/Loader';
 import AnimeError from '../../pages/AnimeError/AnimeError';
+import { useAppSelector } from '../../hooks/redux';
 import { useActions } from '../../hooks/actions';
 
 const Details: React.FC = () => {
@@ -10,8 +11,9 @@ const Details: React.FC = () => {
     useOutletContext<React.Dispatch<React.SetStateAction<boolean>>>();
   const { id = '' } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetAnimeIdQuery(id);
-  const { changeDataId } = useActions();
+  const { isLoadingId } = useAppSelector((state) => state.anime);
+  const { data, isError, isFetching } = useGetAnimeIdQuery(id);
+  const { changeLoadingId } = useActions();
 
   const goBack = () => {
     setIsClose(false);
@@ -19,10 +21,8 @@ const Details: React.FC = () => {
   };
 
   useEffect(() => {
+    changeLoadingId(isFetching);
     setIsClose(true);
-    if (data) {
-      changeDataId(data);
-    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -31,7 +31,7 @@ const Details: React.FC = () => {
     <>
       {isError ? (
         <AnimeError />
-      ) : isLoading ? (
+      ) : isLoadingId ? (
         <Loader />
       ) : (
         data && (

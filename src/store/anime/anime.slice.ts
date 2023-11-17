@@ -1,25 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AnimeState, DataAnime, DataAnimeId } from '../../types/types';
+import { AnimeState, TransformedDataAnime } from '../../types/types';
 
-const initialState: AnimeState = {
+export const initialState: AnimeState = {
   dataInput: '',
   limit: 5,
   page: 1,
   lastVisiblePage: 4001,
   dataApi: [],
-  dataId: {
-    title: '',
-    title_english: '',
-    title_synonyms: [],
-    season: '',
-    year: 0,
-    source: '',
-    images: {
-      jpg: {
-        image_url: '',
-      },
-    },
-  },
+  isLoadingList: false,
+  isLoadingId: false,
 };
 
 export const AnimeSlice = createSlice({
@@ -28,21 +17,27 @@ export const AnimeSlice = createSlice({
   reducers: {
     changeDataInput(state, action: PayloadAction<string>) {
       state.dataInput = action.payload;
+      state.isLoadingList = true;
     },
     changeLimit(state, action: PayloadAction<number>) {
       state.limit = action.payload;
+      state.isLoadingList = true;
     },
     changePage(state, action: PayloadAction<number>) {
       state.page = action.payload;
+      state.isLoadingList = true;
     },
     changeLastVisiblePage(state, action: PayloadAction<number>) {
       state.lastVisiblePage = action.payload;
     },
-    changeDataApi(state, action: PayloadAction<DataAnime[]>) {
+    changeDataApi(state, action: PayloadAction<TransformedDataAnime[]>) {
       state.dataApi = action.payload;
     },
-    changeDataId(state, action: PayloadAction<DataAnimeId>) {
-      state.dataId = action.payload;
+    changeLoadingList(state, action: PayloadAction<boolean>) {
+      state.isLoadingList = action.payload;
+    },
+    changeLoadingId(state, action: PayloadAction<boolean>) {
+      state.isLoadingId = action.payload;
     },
   },
 });

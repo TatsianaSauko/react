@@ -10,11 +10,11 @@ export interface Params {
 
 export interface DataAnimeId {
   title: string;
-  title_english: string;
+  title_english?: string;
   title_synonyms: string[];
-  season: string;
-  year: number;
-  source: string;
+  season?: string;
+  year?: number;
+  source?: string;
   images: {
     jpg: {
       image_url: string;
@@ -27,8 +27,9 @@ export interface AnimeState {
   limit: number;
   page: number;
   lastVisiblePage: number;
-  dataApi: DataAnime[];
-  dataId: DataAnimeId;
+  dataApi: TransformedDataAnime[];
+  isLoadingList: boolean;
+  isLoadingId: boolean;
 }
 
 export interface ResponseAnimeId {
@@ -40,8 +41,14 @@ export interface ResponseAnime {
   pagination: Pagination;
 }
 
+export interface TransformedDataAnime {
+  mal_id: number;
+  title: string;
+  image: string;
+}
+
 export interface TransformedResponse {
-  data: DataAnime[];
+  data: TransformedDataAnime[];
   lastVisiblePage: number;
 }
 
@@ -66,12 +73,12 @@ export interface DataAnime {
   approved: boolean;
   titles: Title[];
   title: string;
-  title_english?: string;
+  title_english: string;
   title_japanese: string;
   title_synonyms: string[];
   type: string;
   source: string;
-  episodes?: number;
+  episodes: number;
   status: string;
   airing: boolean;
   aired: Aired;

@@ -1,17 +1,36 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  PreloadedState,
+} from '@reduxjs/toolkit';
 import { animeApi } from './anime/anime.api';
-import { setupListeners } from '@reduxjs/toolkit/query';
 import { animeReducer } from './anime/anime.slice';
 
-export const store = configureStore({
-  reducer: {
-    [animeApi.reducerPath]: animeApi.reducer,
-    anime: animeReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(animeApi.middleware),
+// export const store = configureStore({
+//   reducer: {
+//     [animeApi.reducerPath]: animeApi.reducer,
+//     anime: animeReducer,
+//   },
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware().concat(animeApi.middleware),
+// });
+
+// export type RootState = ReturnType<typeof store.getState>;
+
+const rootReducer = combineReducers({
+  anime: animeReducer,
 });
-
-setupListeners(store.dispatch);
-
-export type RootState = ReturnType<typeof store.getState>;
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    reducer: {
+      [animeApi.reducerPath]: animeApi.reducer,
+      anime: animeReducer,
+    },
+    preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(animeApi.middleware),
+  });
+}
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];

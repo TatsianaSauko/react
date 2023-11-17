@@ -1,48 +1,64 @@
-// import { expect, it, describe } from 'vitest';
-// import { render, screen } from '@testing-library/react';
-// import ListData from './ListData';
-// import { SearchContext } from '../../pages/MainPage/MainPage';
-// import { BrowserRouter } from 'react-router-dom';
+import { expect, it, describe, vi } from 'vitest';
+import { screen } from '@testing-library/react';
+import ListData from './ListData';
+import { renderWithProviders } from '../../utils/test-utils';
+import { mockData } from '../../mocks/mockData';
 
-// describe('ListData component', () => {
-//   it('ListData render', () => {
-//     render(<ListData />);
-//     expect(screen.getByRole('list')).toBeDefined;
-//   });
-//   it('renders correct number of cards', async () => {
-//     const mockData = [
-//       { mal_id: 1, title: 'Title 1', images: { jpg: { image_url: 'url1' } } },
-//       { mal_id: 2, title: 'Title 2', images: { jpg: { image_url: 'url2' } } },
-//     ];
-//     const mockSetDataInput = vi.fn();
-//     render(
-//       <BrowserRouter>
-//         <SearchContext.Provider
-//           value={{
-//             dataInput: '',
-//             setDataInput: mockSetDataInput,
-//             dataApi: mockData,
-//           }}
-//         >
-//           <ListData />
-//         </SearchContext.Provider>
-//       </BrowserRouter>
-//     );
+import * as reduxHooks from '../../hooks/redux';
 
-//     const cards = await screen.getAllByRole('listitem');
-//     expect(cards).toHaveLength(mockData.length);
-//   });
+describe('ListData component', () => {
+  it('ListData render', () => {
+    renderWithProviders(<ListData />);
+    expect(screen.getByRole('list')).toBeDefined;
+  });
+  it('the component displays the specified number of cards', async () => {
+    const mockUseAppSelector = vi.spyOn(reduxHooks, 'useAppSelector');
+    mockUseAppSelector.mockReturnValue({ dataApi: mockData.data });
+    renderWithProviders(<ListData />);
+    const cards = await screen.getAllByRole('listitem');
+    expect(cards).toHaveLength(mockData.data.length);
+  });
+  it('the component displays the specified number of cards', async () => {
+    renderWithProviders(<ListData />);
+    const cards = await screen.getAllByRole('listitem');
+    expect(cards).toHaveLength(mockData.data.length);
+  });
+  it('the component displays the specified number of cards', async () => {
+    renderWithProviders(<ListData />);
+    const cards = await screen.getAllByRole('listitem');
+    expect(cards).toHaveLength(mockData.data.length);
+  });
+  it('the card component renders the relevant card data', async () => {
+    const { findByText } = renderWithProviders(<ListData />);
+    expect(await findByText('Cowboy Bebop')).toBeInTheDocument();
+    expect(
+      await findByText('Cowboy Bebop: Tengoku no Tobira')
+    ).toBeInTheDocument();
+    expect(await findByText('Trigun')).toBeInTheDocument();
+    expect(await findByText('Witch Hunter Robin')).toBeInTheDocument();
+    expect(await findByText('Witch Hunter Robin')).toBeInTheDocument();
+    expect(await findByText('Bouken Ou Beet')).toBeInTheDocument();
+  });
+  // it('clicking on a card opens a detailed card component', async () => {
+  //   const { findByText } = renderWithProviders(
+  //     <MemoryRouter initialEntries={['/']}>
+  //       <Route path="/" component={ListData} />
+  //       <Route path="/:id" component={Details} />
+  //     </MemoryRouter>
+  //   );
 
-//   it('renders "Nothing found" message if no cards are present', () => {
-//     render(
-//       <SearchContext.Provider
-//         value={{ dataInput: '', setDataInput: vi.fn(), dataApi: [] }}
-//       >
-//         <ListData />
-//       </SearchContext.Provider>
-//     );
+  //   const card = await screen.getByText('Cowboy Bebop');
+  //   fireEvent.click(card);
 
-//     const message = screen.getByText(/Nothing found/i);
-//     expect(message).toBeInTheDocument();
-//   });
-// });
+  //   const detailedCard = await findByText('Title_english: Cowboy Bebop');
+  //   expect(detailedCard).toBeInTheDocument();
+  // });
+
+  it('renders "Nothing found" message if no cards are present', async () => {
+    const mockUseAppSelector = vi.spyOn(reduxHooks, 'useAppSelector');
+    mockUseAppSelector.mockReturnValue({ dataApi: [] });
+    renderWithProviders(<ListData />);
+    const message = screen.getByText(/Nothing found/i);
+    expect(message).toBeInTheDocument();
+  });
+});

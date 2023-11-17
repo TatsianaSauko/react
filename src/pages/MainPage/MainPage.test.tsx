@@ -1,35 +1,16 @@
-import { expect, test, vi } from 'vitest';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { expect, test } from 'vitest';
+import { screen } from '@testing-library/react';
 import MainPage from './MainPage';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { renderWithProviders } from '../../utils/test-utils';
+import { animeReducer, initialState } from '../../store/anime/anime.slice';
 
-describe('Pagination', () => {
-  test('saves input value to local storage on handleAdd', async () => {
-    const { getByText, getByPlaceholderText } = render(
-      <Router>
-        <MainPage />
-      </Router>
-    );
-    const input = getByPlaceholderText('Enter a name...');
-    const button = getByText('Search');
-
-    Storage.prototype.setItem = vi.fn();
-
-    fireEvent.change(input, { target: { value: 'Test value' } });
-    fireEvent.click(button);
-
-    expect(localStorage.setItem).toHaveBeenCalledWith('state', 'Test value');
+describe('MainPage', () => {
+  it('should render without crashing', async () => {
+    renderWithProviders(<MainPage />);
+    expect(screen.getByText(/Anime/i)).toBeInTheDocument();
   });
 
-  test('retrieves value from local storage on mount', async () => {
-    render(
-      <Router>
-        <MainPage />
-      </Router>
-    );
-    Storage.prototype.getItem = vi.fn(() => 'Test value');
-    await waitFor(() => {
-      expect(localStorage.getItem).toHaveBeenCalledWith('state');
-    });
+  test('should return the initial state', () => {
+    expect(animeReducer(undefined, { type: undefined })).toEqual(initialState);
   });
 });
