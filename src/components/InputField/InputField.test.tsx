@@ -1,18 +1,15 @@
-// import { describe, it, expect, vi } from 'vitest';
-// import { fireEvent, render } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
-// import InputField from './InputField';
+import { describe, it, expect } from 'vitest';
+import InputField from './InputField';
+import { renderWithProviders } from '../../utils/test-utils';
 
-// describe('InputField', () => {
-//   it('calls handleAdd when submitted', async () => {
-// const handleAddMock = vi.fn();
-// const { getByRole, getByPlaceholderText } = render(
-//   <InputField />
-// );
-// const input = getByPlaceholderText('Enter a name...');
-// const button = getByRole('button');
-// await userEvent.type(input, 'John Doe');
-// await fireEvent.submit(button);
-// expect(handleAddMock).toHaveBeenCalledTimes(1);
-//   });
-// });
+describe('InputField', () => {
+  it('should render without crashing', async () => {
+    const { getByRole, getByPlaceholderText } = renderWithProviders(
+      <InputField />
+    );
+    const input = await getByPlaceholderText('Enter a name...');
+    const button = await getByRole('button');
+    expect(input).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
+  });
+});

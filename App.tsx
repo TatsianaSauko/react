@@ -1,6 +1,6 @@
-import './components/styles.css';
+import './src/components/styles.css';
 import React from 'react';
-import MainPage from './pages/MainPage/MainPage';
+import MainPage from './src/pages/MainPage/MainPage';
 
 import {
   createBrowserRouter,
@@ -8,9 +8,9 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import Details from './components/Details/Details';
-import NotFound from './pages/NotFound/NotFound';
-import AnimeError from './pages/AnimeError/AnimeError';
+import Details from './src/components/Details/Details';
+import NotFound from './src/pages/NotFound/NotFound';
+import AnimeError from './src/pages/AnimeError/AnimeError';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

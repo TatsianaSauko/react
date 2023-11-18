@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Loader from './Loader';
+import { renderWithProviders } from '../../utils/test-utils';
 
 test('renders Loader component', () => {
-  render(<Loader />);
+  renderWithProviders(<Loader />);
   const loaderElement = screen.getByTestId('loader');
   expect(loaderElement).toBeInTheDocument();
 });

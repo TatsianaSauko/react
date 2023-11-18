@@ -10,7 +10,7 @@ describe('MainPage', () => {
     expect(screen.getByText(/Anime/i)).toBeInTheDocument();
   });
 
-  test('should return the initial state', () => {
+  test('should return the initial state', async () => {
     expect(animeReducer(undefined, { type: undefined })).toEqual(initialState);
   });
 });

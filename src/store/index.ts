@@ -6,17 +6,6 @@ import {
 import { animeApi } from './anime/anime.api';
 import { animeReducer } from './anime/anime.slice';
 
-// export const store = configureStore({
-//   reducer: {
-//     [animeApi.reducerPath]: animeApi.reducer,
-//     anime: animeReducer,
-//   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(animeApi.middleware),
-// });
-
-// export type RootState = ReturnType<typeof store.getState>;
-
 const rootReducer = combineReducers({
   anime: animeReducer,
 });

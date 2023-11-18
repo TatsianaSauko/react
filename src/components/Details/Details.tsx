@@ -35,7 +35,7 @@ const Details: React.FC = () => {
         <Loader />
       ) : (
         data && (
-          <div className="card__details">
+          <div className="card__details" data-testid="detail">
             <h2>Anime Details for {data.title}</h2>
             <div>Number: {id}</div>
             <div>Title_english: {data.title_english}</div>

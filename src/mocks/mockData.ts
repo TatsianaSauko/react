@@ -850,7 +850,7 @@ export const mockData = {
 };
 
 export const newInitialState = {
-  dataInput: 'Test dataInput',
+  dataInput: '',
   limit: 5,
   page: 1,
   lastVisiblePage: 4001,
@@ -871,4 +871,6 @@ export const newInitialState = {
       image: 'url3',
     },
   ],
+  isLoadingList: false,
+  isLoadingId: false,
 };
