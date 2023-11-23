@@ -7,7 +7,7 @@ import SelectLimit from '@/components/SelectLimit';
 import ListData from '@/components/ListData';
 import Pagination from '@/components/Pagination';
 import Details from '../src/components/Details';
-import {MainLayout} from '../src/components/MainLayout';
+import { MainLayout } from '../src/components/MainLayout';
 
 interface IData {
   data: ResponseAnime;
@@ -57,41 +57,40 @@ export default function Home({ data }: IData) {
   return (
     <MainLayout>
       <div className="app">
-      <div onClick={closePage}>
-        <div className={`${isClose ? 'main overlay' : 'main'}`}>
-          <span className="head">Anime</span>
+        <div onClick={closePage}>
+          <div className={`${isClose ? 'main overlay' : 'main'}`}>
+            <span className="head">Anime</span>
 
-          <InputField
-            search={search}
-            setSearch={setSearch}
-            handleAdd={handleAdd}
-          />
+            <InputField
+              search={search}
+              setSearch={setSearch}
+              handleAdd={handleAdd}
+            />
 
-          <SelectLimit
-            value={limit}
-            changeLimit={(dataLimit: number) => changeLimit(dataLimit)}
-          />
-          <ListData
-            dataApi={data.data}
-            handleItemClick={(item) => handleItemClick(item)}
-          />
-          <Pagination
-            page={page}
-            lastVisiblePage={lastVisiblePage}
-            setPage={setPage}
-          />
+            <SelectLimit
+              value={limit}
+              changeLimit={(dataLimit: number) => changeLimit(dataLimit)}
+            />
+            <ListData
+              dataApi={data.data}
+              handleItemClick={(item) => handleItemClick(item)}
+            />
+            <Pagination
+              page={page}
+              lastVisiblePage={lastVisiblePage}
+              setPage={setPage}
+            />
+          </div>
         </div>
+        {selectedItem && (
+          <Details
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            setIsClose={setIsClose}
+          />
+        )}
       </div>
-      {selectedItem && (
-        <Details
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-          setIsClose={setIsClose}
-        />
-      )}
-    </div>
     </MainLayout>
-    
   );
 }
 
@@ -100,7 +99,9 @@ export async function getServerSideProps({ query }: NextPageContext) {
   const limit = query.limit || 5;
   const page = query.page || 1;
 
-  const response = await fetch(`https://api.jikan.moe/v4/anime?q=${search}&limit=${limit}&page=${page}`);
+  const response = await fetch(
+    `https://api.jikan.moe/v4/anime?q=${search}&limit=${limit}&page=${page}`
+  );
 
   const data = await response.json();
   return {
