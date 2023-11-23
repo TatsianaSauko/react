@@ -1,3 +1,24 @@
+export interface PropsSelect {
+  value: number;
+  changeLimit: (data: number) => void;
+}
+
+export interface ItemApi {
+  mal_id: number;
+  title: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+}
+
+export interface PropsPagination {
+  page: number;
+  lastVisiblePage: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
 export interface IError {
   message: string;
 }
@@ -9,6 +30,7 @@ export interface Params {
 }
 
 export interface DataAnimeId {
+  mal_id: string;
   title: string;
   title_english?: string;
   title_synonyms: string[];
@@ -99,8 +121,7 @@ export interface DataAnime {
   licensors: Licensor[];
   studios: Studio[];
   genres: Genre[];
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  explicit_genres: any[];
+  explicit_genres: never;
   themes: Theme[];
   demographics: Demographic[];
 }
