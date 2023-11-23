@@ -7,7 +7,7 @@ export default function ErrorPage() {
       <p>
         Please{' '}
         <Link href={'/'}>
-          <a>go back</a>
+          go back
         </Link>{' '}
         to safety
       </p>

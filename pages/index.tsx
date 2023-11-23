@@ -1,30 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
-import { ResponseAnime, DataAnime } from '@/types/types';
+import { DataAnime, IData } from '@/types/types';
 import InputField from '@/components/InputField';
 import SelectLimit from '@/components/SelectLimit';
 import ListData from '@/components/ListData';
 import Pagination from '@/components/Pagination';
 import Details from '../src/components/Details';
 import { MainLayout } from '../src/components/MainLayout';
+import Loading from './Loading';
 
-interface IData {
-  data: ResponseAnime;
-}
 
 export default function Home({ data }: IData) {
   const [search, setSearch] = useState('');
-  const [dataApi] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const router = useRouter();
   const [isClose, setIsClose] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DataAnime | null>(null);
-  const [lastVisiblePage] = useState<number>(4001);
+  const [lastVisiblePage, setLastVisiblePage] = useState<number>(4001);
 
   useEffect(() => {
     router.push(`/?search=${search}&limit=${limit}&page=${page}`);
+    if(data.pagination) {
+      setLastVisiblePage(data.pagination.last_visible_page)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
 
@@ -38,13 +38,11 @@ export default function Home({ data }: IData) {
     setLimit(dataLimit);
     setPage(1);
   };
-  if (!dataApi) {
-    return null;
-  }
   const closePage = () => {
     if (isClose) {
       setSelectedItem(null);
       setIsClose(false);
+      window.history.pushState(null, '', `/?search=${search}&limit=${limit}&page=${page}`);
     }
   };
   const handleItemClick = (item: DataAnime) => {
@@ -53,6 +51,9 @@ export default function Home({ data }: IData) {
       window.history.pushState(null, '', `/detail/${item.mal_id}`);
     }
   };
+  if (!data) {
+  return null;
+}
 
   return (
     <MainLayout>
@@ -71,10 +72,13 @@ export default function Home({ data }: IData) {
               value={limit}
               changeLimit={(dataLimit: number) => changeLimit(dataLimit)}
             />
+            <Suspense fallback={<Loading/>}>
             <ListData
               dataApi={data.data}
               handleItemClick={(item) => handleItemClick(item)}
             />
+            </Suspense>
+            
             <Pagination
               page={page}
               lastVisiblePage={lastVisiblePage}
@@ -85,8 +89,8 @@ export default function Home({ data }: IData) {
         {selectedItem && (
           <Details
             selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
             setIsClose={setIsClose}
+            closePage={closePage}
           />
         )}
       </div>

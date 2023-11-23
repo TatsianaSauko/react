@@ -1,24 +1,15 @@
-import { DataAnime } from '@/types/types';
+import { PropsDetails } from '@/types/types';
 import { useEffect } from 'react';
-import { Dispatch } from 'react';
+
 import Image from 'next/image';
 
-interface Props {
-  selectedItem: DataAnime;
-  setSelectedItem: Dispatch<React.SetStateAction<DataAnime | null>>;
-  setIsClose: Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Details = ({ selectedItem, setSelectedItem, setIsClose }: Props) => {
-  const goBack = () => {
-    setIsClose(false);
-    setSelectedItem(null);
-  };
+const Details = ({ selectedItem, setIsClose, closePage }: PropsDetails) => {
 
   useEffect(() => {
     setIsClose(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
+
   return (
     <>
       {selectedItem && (
@@ -42,8 +33,9 @@ const Details = ({ selectedItem, setSelectedItem, setIsClose }: Props) => {
             alt={selectedItem.title}
             width={250}
             height={300}
+            priority
           />
-          <button className="button__close" onClick={goBack}>
+          <button className="button__close" onClick={closePage}>
             Close
           </button>
         </div>

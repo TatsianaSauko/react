@@ -1,16 +1,16 @@
+import { Dispatch } from 'react';
 export interface PropsSelect {
   value: number;
   changeLimit: (data: number) => void;
 }
 
-export interface ItemApi {
-  mal_id: number;
-  title: string;
-  images: {
-    jpg: {
-      image_url: string;
-    };
-  };
+export interface IDataApi {
+  dataApi: DataAnime[];
+  handleItemClick: (item: DataAnime) => void;
+}
+
+export interface IData {
+  data: ResponseAnime;
 }
 
 export interface PropsPagination {
@@ -23,55 +23,16 @@ export interface IError {
   message: string;
 }
 
-export interface Params {
-  dataInput: string;
-  limit: number;
-  page: number;
+export interface PropsDetails {
+  selectedItem: DataAnime;
+  setIsClose: Dispatch<React.SetStateAction<boolean>>;
+  closePage: () => void;
 }
 
-export interface DataAnimeId {
-  mal_id: string;
-  title: string;
-  title_english?: string;
-  title_synonyms: string[];
-  season?: string;
-  year?: number;
-  source?: string;
-  images: {
-    jpg: {
-      image_url: string;
-    };
-  };
-}
-
-export interface AnimeState {
-  dataInput: string;
-  limit: number;
-  page: number;
-  lastVisiblePage: number;
-  dataApi: TransformedDataAnime[];
-  isLoadingList: boolean;
-  isLoadingId: boolean;
-}
-
-export interface ResponseAnimeId {
-  data: DataAnime;
-}
 
 export interface ResponseAnime {
   data: DataAnime[];
   pagination: Pagination;
-}
-
-export interface TransformedDataAnime {
-  mal_id: number;
-  title: string;
-  image: string;
-}
-
-export interface TransformedResponse {
-  data: TransformedDataAnime[];
-  lastVisiblePage: number;
 }
 
 export interface Pagination {

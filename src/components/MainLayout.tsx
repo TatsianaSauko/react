@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { GlobalContextProvider } from '@/Context/store';
 import Head from 'next/head';
 
 export interface MainLayoutProps {
@@ -21,7 +20,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         />
         <meta charSet="utf-8" />
       </Head>
-      <GlobalContextProvider>{children}</GlobalContextProvider>
+      {children}
     </>
   );
 }

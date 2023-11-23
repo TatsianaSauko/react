@@ -1,9 +1,6 @@
-import { DataAnime } from '@/types/types';
+import { IDataApi } from '@/types/types';
 import Image from 'next/image';
-interface IDataApi {
-  dataApi: DataAnime[];
-  handleItemClick: (item: DataAnime) => void;
-}
+
 
 function ListData({ dataApi, handleItemClick }: IDataApi) {
   return (
@@ -18,7 +15,8 @@ function ListData({ dataApi, handleItemClick }: IDataApi) {
                 alt={item.title}
                 width={270}
                 height={380}
-              />
+                priority
+              /> 
             </li>
           </div>
         ))
