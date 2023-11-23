@@ -1,4 +1,3 @@
-import { Dispatch } from 'react';
 export interface PropsSelect {
   value: number;
   changeLimit: (dataLimit: number) => void;

@@ -9,7 +9,6 @@ import Pagination from '@/components/Pagination';
 import Details from '../src/components/Details';
 import { MainLayout } from '../src/components/MainLayout';
 
-
 export default function Home({ data }: IData) {
   const router = useRouter();
   const { search = '', limit = 5, page = 1, detail = null } = router.query;
@@ -17,39 +16,43 @@ export default function Home({ data }: IData) {
 
   const closePage = () => {
     if (detail) {
-      selectedItem.current= null;
+      selectedItem.current = null;
       router.push(`/?search=${search}&limit=${limit}&page=${page}`);
     }
   };
   const handleItemClick = (item: DataAnime) => {
     if (item) {
       selectedItem.current = item;
-      router.push(`/?search=${search}&limit=${limit}&page=${page}&detail=${item.mal_id}`);
+      router.push(
+        `/?search=${search}&limit=${limit}&page=${page}&detail=${item.mal_id}`
+      );
     }
   };
   if (!data) {
     return null;
   }
   return (
-    
     <MainLayout>
       <div className="app">
         <div onClick={closePage}>
           <div className={`${detail ? 'main overlay' : 'main'}`}>
             <span className="head">Anime</span>
 
-            <InputField/>
+            <InputField />
 
             <SelectLimit
               value={Number(limit)}
-              changeLimit={(dataLimit: number) => router.push(`/?search=${search}&limit=${dataLimit}&page=${page}`)}
+              changeLimit={(dataLimit: number) =>
+                router.push(
+                  `/?search=${search}&limit=${dataLimit}&page=${page}`
+                )
+              }
             />
-           
-              <ListData
-                dataApi={data.data}
-                handleItemClick={(item) => handleItemClick(item)}
-              />
-           
+
+            <ListData
+              dataApi={data.data}
+              handleItemClick={(item) => handleItemClick(item)}
+            />
 
             <Pagination
               page={Number(page)}
@@ -61,10 +64,7 @@ export default function Home({ data }: IData) {
           </div>
         </div>
         {selectedItem.current && (
-          <Details
-            selectedItem={selectedItem.current}
-            closePage={closePage}
-          />
+          <Details selectedItem={selectedItem.current} closePage={closePage} />
         )}
       </div>
     </MainLayout>
