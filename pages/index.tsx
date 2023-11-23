@@ -10,7 +10,6 @@ import Details from '../src/components/Details';
 import { MainLayout } from '../src/components/MainLayout';
 import Loading from './Loading';
 
-
 export default function Home({ data }: IData) {
   const [search, setSearch] = useState('');
   const [limit, setLimit] = useState(5);
@@ -22,8 +21,8 @@ export default function Home({ data }: IData) {
 
   useEffect(() => {
     router.push(`/?search=${search}&limit=${limit}&page=${page}`);
-    if(data.pagination) {
-      setLastVisiblePage(data.pagination.last_visible_page)
+    if (data.pagination) {
+      setLastVisiblePage(data.pagination.last_visible_page);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
@@ -42,7 +41,11 @@ export default function Home({ data }: IData) {
     if (isClose) {
       setSelectedItem(null);
       setIsClose(false);
-      window.history.pushState(null, '', `/?search=${search}&limit=${limit}&page=${page}`);
+      window.history.pushState(
+        null,
+        '',
+        `/?search=${search}&limit=${limit}&page=${page}`
+      );
     }
   };
   const handleItemClick = (item: DataAnime) => {
@@ -52,8 +55,8 @@ export default function Home({ data }: IData) {
     }
   };
   if (!data) {
-  return null;
-}
+    return null;
+  }
 
   return (
     <MainLayout>
@@ -72,13 +75,13 @@ export default function Home({ data }: IData) {
               value={limit}
               changeLimit={(dataLimit: number) => changeLimit(dataLimit)}
             />
-            <Suspense fallback={<Loading/>}>
-            <ListData
-              dataApi={data.data}
-              handleItemClick={(item) => handleItemClick(item)}
-            />
+            <Suspense fallback={<Loading />}>
+              <ListData
+                dataApi={data.data}
+                handleItemClick={(item) => handleItemClick(item)}
+              />
             </Suspense>
-            
+
             <Pagination
               page={page}
               lastVisiblePage={lastVisiblePage}

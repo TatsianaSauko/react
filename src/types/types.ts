@@ -29,7 +29,6 @@ export interface PropsDetails {
   closePage: () => void;
 }
 
-
 export interface ResponseAnime {
   data: DataAnime[];
   pagination: Pagination;

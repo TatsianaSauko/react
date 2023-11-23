@@ -5,11 +5,7 @@ export default function ErrorPage() {
     <div className="anime-error">
       <h1>Error 404</h1>
       <p>
-        Please{' '}
-        <Link href={'/'}>
-          go back
-        </Link>{' '}
-        to safety
+        Please <Link href={'/'}>go back</Link> to safety
       </p>
     </div>
   );

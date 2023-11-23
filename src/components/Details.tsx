@@ -4,11 +4,10 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 
 const Details = ({ selectedItem, setIsClose, closePage }: PropsDetails) => {
-
   useEffect(() => {
     setIsClose(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <>

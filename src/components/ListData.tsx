@@ -1,7 +1,6 @@
 import { IDataApi } from '@/types/types';
 import Image from 'next/image';
 
-
 function ListData({ dataApi, handleItemClick }: IDataApi) {
   return (
     <ul className="cards">
@@ -16,7 +15,7 @@ function ListData({ dataApi, handleItemClick }: IDataApi) {
                 width={270}
                 height={380}
                 priority
-              /> 
+              />
             </li>
           </div>
         ))
