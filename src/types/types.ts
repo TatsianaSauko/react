@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 export interface PropsSelect {
   value: number;
-  changeLimit: (data: number) => void;
+  changeLimit: (dataLimit: number) => void;
 }
 
 export interface IDataApi {
@@ -16,7 +16,7 @@ export interface IData {
 export interface PropsPagination {
   page: number;
   lastVisiblePage: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage: (newPage: number) => void;
 }
 
 export interface IError {
@@ -25,7 +25,6 @@ export interface IError {
 
 export interface PropsDetails {
   selectedItem: DataAnime;
-  setIsClose: Dispatch<React.SetStateAction<boolean>>;
   closePage: () => void;
 }
 

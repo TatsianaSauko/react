@@ -1,14 +1,7 @@
 import { PropsDetails } from '@/types/types';
-import { useEffect } from 'react';
-
 import Image from 'next/image';
 
-const Details = ({ selectedItem, setIsClose, closePage }: PropsDetails) => {
-  useEffect(() => {
-    setIsClose(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+const Details = ({ selectedItem, closePage }: PropsDetails) => {
   return (
     <>
       {selectedItem && (
