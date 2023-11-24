@@ -32,7 +32,7 @@ export default function Home({ data }: IData) {
     return null;
   }
   return (
-    <MainLayout>
+      <MainLayout>
       <div className="app">
         <div onClick={closePage}>
           <div className={`${detail ? 'main overlay' : 'main'}`}>
