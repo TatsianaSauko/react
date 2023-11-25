@@ -45,54 +45,93 @@ export interface Items {
   per_page: number;
 }
 
+// export interface DataAnime {
+//   mal_id: number;
+//   url: string;
+//   images: Images;
+//   trailer: Trailer;
+//   approved: boolean;
+//   titles: Title[];
+//   title: string;
+//   title_english: string;
+//   title_japanese: string;
+//   title_synonyms: string[];
+//   type: string;
+//   source: string;
+//   episodes: number;
+//   status: string;
+//   airing: boolean;
+//   aired: Aired;
+//   duration: string;
+//   rating: string;
+//   score: number;
+//   scored_by: number;
+//   rank: number;
+//   popularity: number;
+//   members: number;
+//   favorites: number;
+//   synopsis: string;
+//   background?: string;
+//   season?: string;
+//   year?: number;
+//   broadcast: Broadcast;
+//   producers: Producer[];
+//   licensors: Licensor[];
+//   studios: Studio[];
+//   genres: Genre[];
+//   explicit_genres: never;
+//   themes: Theme[];
+//   demographics: Demographic[];
+// }
+
 export interface DataAnime {
   mal_id: number;
-  url: string;
+  url?: string;
   images: Images;
-  trailer: Trailer;
-  approved: boolean;
-  titles: Title[];
+  trailer?: Trailer;
+  approved?: boolean;
+  titles?: Title[];
   title: string;
   title_english: string;
-  title_japanese: string;
+  title_japanese?: string;
   title_synonyms: string[];
-  type: string;
+  type?: string;
   source: string;
-  episodes: number;
-  status: string;
-  airing: boolean;
-  aired: Aired;
-  duration: string;
-  rating: string;
-  score: number;
-  scored_by: number;
-  rank: number;
-  popularity: number;
-  members: number;
-  favorites: number;
-  synopsis: string;
+  episodes?: number;
+  status?: string;
+  airing?: boolean;
+  aired?: Aired;
+  duration?: string;
+  rating?: string;
+  score?: number;
+  scored_by?: number;
+  rank?: number;
+  popularity?: number;
+  members?: number;
+  favorites?: number;
+  synopsis?: string;
   background?: string;
   season?: string;
-  year?: number;
-  broadcast: Broadcast;
-  producers: Producer[];
-  licensors: Licensor[];
-  studios: Studio[];
-  genres: Genre[];
-  explicit_genres: never;
-  themes: Theme[];
-  demographics: Demographic[];
+  year?: string;
+  broadcast?: Broadcast;
+  producers?: Producer[];
+  licensors?: Licensor[];
+  studios?: Studio[];
+  genres?: Genre[];
+  explicit_genres?: never[];
+  themes?: Theme[];
+  demographics?: Demographic[];
 }
 
 export interface Images {
   jpg: Jpg;
-  webp: Webp;
+  webp?: Webp;
 }
 
 export interface Jpg {
   image_url: string;
-  small_image_url: string;
-  large_image_url: string;
+  small_image_url?: string;
+  large_image_url?: string;
 }
 
 export interface Webp {

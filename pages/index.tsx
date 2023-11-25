@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
-import { DataAnime, IData } from '@/types/types';
-import InputField from '@/components/InputField';
-import SelectLimit from '@/components/SelectLimit';
-import ListData from '@/components/ListData';
-import Pagination from '@/components/Pagination';
+import { DataAnime, IData } from '../src/types/types';
+import InputField from '../src/components/InputField';
+import SelectLimit from '../src/components/SelectLimit';
+import ListData from '../src/components/ListData';
+import Pagination from '../src/components/Pagination';
 import Details from '../src/components/Details';
 import { MainLayout } from '../src/components/MainLayout';
 
