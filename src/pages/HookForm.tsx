@@ -60,7 +60,6 @@ function HookForm() {
 
   const watchAllFields = watch();
   const formComplete = isFormComplete(watchAllFields);
-  console.log(formComplete);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

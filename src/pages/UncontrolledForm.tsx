@@ -46,7 +46,6 @@ function UncontrolledForm() {
       ...formState,
       [e.target.name]: value,
     });
-    console.log(formState);
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -96,15 +95,6 @@ function UncontrolledForm() {
       }
     }
   }
-  // const isFormComplete = Object.values(formState).every((value) => {
-  //   if (typeof value === "boolean") {
-  //     return true;
-  //   }
-  //   if (typeof value === 'string') {
-  //     return value.trim() !== '';
-  //   }
-  //   return value !== null && value !== undefined;
-  // });
 
   const formComplete = isFormComplete(formState);
 
@@ -214,7 +204,6 @@ function UncontrolledForm() {
       <input
         type="submit"
         disabled={!formComplete}
-        // className={isFormComplete ? 'submit' : 'submit-disabled'}
         style={{
           backgroundColor: formComplete ? "blue" : "gray",
           cursor: formComplete ? "pointer" : "not-allowed",
