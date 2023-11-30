@@ -26,9 +26,9 @@ label {
 }
 
 input {
-  height: 35px;
+  height: 25px;
   padding: 5px 10px;
-  font-size: 16px;
+  font-size: 13px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
@@ -66,15 +66,38 @@ p {
 .list-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 5px;
   font-size: 24px;
 }
 
 li {
   list-style: none;
   font-size: 20px;
+  padding-right: 30px;
 }
 
 a {
   text-decoration: none;
+}
+
+.wrapper-results-form {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.results-form {
+  border: 3px solid gray;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.results-form-highlight {
+  border: 3px solid green;
+  box-shadow: 0 0 10px lime;
+}
+
+.title-results-form {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 26px;
 }

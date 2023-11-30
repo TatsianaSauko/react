@@ -4,6 +4,7 @@ import { countries } from "../data/countries";
 import { useNavigate } from "react-router-dom";
 import { useActions } from "../hooks/actions";
 import * as yup from "yup";
+import { isFormComplete } from "../utils/isFormComplete";
 
 function UncontrolledForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -95,12 +96,17 @@ function UncontrolledForm() {
       }
     }
   }
-  const isFormComplete = Object.values(formState).every((value) => {
-    if (typeof value === "boolean") {
-      return true;
-    }
-    return value && value !== "";
-  });
+  // const isFormComplete = Object.values(formState).every((value) => {
+  //   if (typeof value === "boolean") {
+  //     return true;
+  //   }
+  //   if (typeof value === 'string') {
+  //     return value.trim() !== '';
+  //   }
+  //   return value !== null && value !== undefined;
+  // });
+
+  const formComplete = isFormComplete(formState);
 
   return (
     <form ref={formRef} onSubmit={onSubmit}>
@@ -187,28 +193,31 @@ function UncontrolledForm() {
         </div>
 
         <div className="input-field">
-          <label htmlFor="countries">Country:</label>
-          <select
-            id="countries"
+          <label htmlFor="country">Country:</label>
+          <input
+            list="countries"
+            id="country"
             name="country"
             value={formState.country}
             onChange={handleChange}
-          >
+          />
+          <datalist id="countries">
             {countries.map((country, index) => (
               <option key={index} value={country}>
                 {country}
               </option>
             ))}
-          </select>
+          </datalist>
           {errors.country && <p>{errors.country}</p>}
         </div>
       </div>
       <input
         type="submit"
-        disabled={!isFormComplete}
+        disabled={!formComplete}
+        // className={isFormComplete ? 'submit' : 'submit-disabled'}
         style={{
-          backgroundColor: isFormComplete ? "blue" : "gray",
-          cursor: isFormComplete ? "pointer" : "not-allowed",
+          backgroundColor: formComplete ? "blue" : "gray",
+          cursor: formComplete ? "pointer" : "not-allowed",
         }}
       />
     </form>

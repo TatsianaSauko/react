@@ -2,15 +2,15 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IState } from "../../types/types";
 
 export const initialState: IState = {
-  name: "",
-  age: 1,
-  email: "",
-  password: "",
-  confirmPassword: "",
-  gender: "",
-  terms: false,
-  image: "",
-  country: "",
+  name: [],
+  age: [],
+  email: [],
+  password: [],
+  confirmPassword: [],
+  gender: [],
+  terms: [],
+  image: [],
+  country: [],
 };
 
 const formSlice = createSlice({
@@ -18,31 +18,31 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     saveFormName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload;
+      state.name.unshift(action.payload);
     },
     saveFormAge: (state, action: PayloadAction<number>) => {
-      state.age = action.payload;
+      state.age.unshift(action.payload);
     },
     saveFormEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload;
+      state.email.unshift(action.payload);
     },
     saveFormPassword: (state, action: PayloadAction<string>) => {
-      state.password = action.payload;
+      state.password.unshift(action.payload);
     },
     saveFormConfirmPassword: (state, action: PayloadAction<string>) => {
-      state.confirmPassword = action.payload;
+      state.confirmPassword.unshift(action.payload);
     },
     saveFormGender: (state, action: PayloadAction<string>) => {
-      state.gender = action.payload;
+      state.gender.unshift(action.payload);
     },
     saveFormTerms: (state, action: PayloadAction<boolean>) => {
-      state.terms = action.payload;
+      state.terms.unshift(action.payload);
     },
     saveFormImage: (state, action: PayloadAction<string>) => {
-      state.image = action.payload;
+      state.image.unshift(action.payload);
     },
     setFormCountry: (state, action: PayloadAction<string>) => {
-      state.country = action.payload;
+      state.country.unshift(action.payload);
     },
   },
 });

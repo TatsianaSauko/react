@@ -5,6 +5,7 @@ import { useActions } from "../hooks/actions";
 import { countries } from "../data/countries";
 import { FormData } from "../types/types";
 import { useNavigate } from "react-router-dom";
+import { isFormComplete } from "../utils/isFormComplete";
 
 function HookForm() {
   const navigate = useNavigate();
@@ -58,13 +59,8 @@ function HookForm() {
   }
 
   const watchAllFields = watch();
-
-  const isFormComplete = Object.values(watchAllFields).every((value) => {
-    if (typeof value === "boolean") {
-      return true;
-    }
-    return value && value !== "";
-  });
+  const formComplete = isFormComplete(watchAllFields);
+  console.log(formComplete);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,23 +122,23 @@ function HookForm() {
         </div>
 
         <div className="input-field">
-          <label htmlFor="countries">Country:</label>
-          <select id="countries" {...register("country")}>
+          <label htmlFor="country">Country:</label>
+          <input list="countries" id="country" {...register("country")} />
+          <datalist id="countries">
             {countries.map((country, index) => (
-              <option key={index} value={country}>
-                {country}
-              </option>
+              <option key={index} value={country} />
             ))}
-          </select>
+          </datalist>
           {errors.country && <p>{errors.country.message}</p>}
         </div>
       </div>
+
       <input
         type="submit"
-        disabled={!isFormComplete}
+        disabled={!formComplete}
         style={{
-          backgroundColor: isFormComplete ? "blue" : "gray",
-          cursor: isFormComplete ? "pointer" : "not-allowed",
+          backgroundColor: formComplete ? "blue" : "gray",
+          cursor: formComplete ? "pointer" : "not-allowed",
         }}
       />
     </form>
