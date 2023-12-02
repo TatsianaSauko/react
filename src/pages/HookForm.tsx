@@ -6,9 +6,13 @@ import { countries } from "../data/countries";
 import { FormData } from "../types/types";
 import { useNavigate } from "react-router-dom";
 import { isFormComplete } from "../utils/isFormComplete";
+import { useState } from "react";
+import { evaluatePasswordStrength } from "../utils/evaluatePasswordStrength";
+import { PasswordStrengthIndicator } from "../components/PasswordStrengthIndicator";
 
 function HookForm() {
   const navigate = useNavigate();
+  const [passwordStrength, setPasswordStrength] = useState(0);
   const {
     register,
     handleSubmit,
@@ -58,6 +62,11 @@ function HookForm() {
     }
   }
 
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = event.target.value;
+    setPasswordStrength(evaluatePasswordStrength(newPassword));
+  };
+
   const watchAllFields = watch();
   const formComplete = isFormComplete(watchAllFields);
 
@@ -96,7 +105,12 @@ function HookForm() {
 
         <div className="input-field">
           <label>Password:</label>
-          <input {...register("password")} placeholder="Password" />
+          <input
+            {...register("password")}
+            placeholder="Password"
+            onChange={handlePasswordChange}
+          />
+          <PasswordStrengthIndicator strength={passwordStrength} />
           {errors.password ? (
             <p>{errors.password.message}</p>
           ) : (

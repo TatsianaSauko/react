@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useActions } from "../hooks/actions";
 import * as yup from "yup";
 import { isFormComplete } from "../utils/isFormComplete";
+import { PasswordStrengthIndicator } from "../components/PasswordStrengthIndicator";
+import { evaluatePasswordStrength } from "../utils/evaluatePasswordStrength";
 
 function UncontrolledForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [passwordStrength, setPasswordStrength] = useState(0);
   const navigate = useNavigate();
   const {
     saveFormName,
@@ -96,6 +99,12 @@ function UncontrolledForm() {
     }
   }
 
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange(event);
+    const newPassword = event.target.value;
+    setPasswordStrength(evaluatePasswordStrength(newPassword));
+  };
+
   const formComplete = isFormComplete(formState);
 
   return (
@@ -151,9 +160,10 @@ function UncontrolledForm() {
           <input
             name="password"
             value={formState.password}
-            onChange={handleChange}
+            onChange={handlePasswordChange}
             placeholder="Password"
           />
+          <PasswordStrengthIndicator strength={passwordStrength} />
           {errors.password ? (
             <p>{errors.password}</p>
           ) : (

@@ -10,8 +10,8 @@ export const schema = yup.object().shape({
   password: yup
     .string()
     .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
-      "Password should include 1 number, 1 uppercase letter, 1 lowercase letter, 1 special character, > 7 characters",
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).*$/,
+      "Password should include 1 number, 1 uppercase letter, 1 lowercase letter, 1 special character",
     )
     .required(),
   confirmPassword: yup
