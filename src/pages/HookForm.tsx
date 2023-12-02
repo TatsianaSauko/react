@@ -67,25 +67,41 @@ function HookForm() {
         <div className="input-field">
           <label>Name:</label>
           <input {...register("name")} placeholder="Name" />
-          {errors.name && <p>{errors.name.message}</p>}
+          {errors.name ? (
+            <p>{errors.name.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
           <label>Age:</label>
           <input {...register("age")} placeholder="Age" />
-          {errors.age && <p>{errors.age.message}</p>}
+          {errors.age ? (
+            <p>{errors.age.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
           <label>Email:</label>
           <input {...register("email")} placeholder="Email" />
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email ? (
+            <p>{errors.email.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
           <label>Password:</label>
           <input {...register("password")} placeholder="Password" />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password ? (
+            <p>{errors.password.message}</p>
+          ) : (
+            <p className="hidden height">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -94,7 +110,11 @@ function HookForm() {
             {...register("confirmPassword")}
             placeholder="Repeat Password"
           />
-          {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+          {errors.confirmPassword ? (
+            <p>{errors.confirmPassword.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -104,20 +124,32 @@ function HookForm() {
             <option value="male">male</option>
             <option value="other">other</option>
           </select>
-          {errors.gender && <p>{errors.gender.message}</p>}
+          {errors.gender ? (
+            <p>{errors.gender.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
           <label> Accept Terms and Conditions </label>
           <input type="checkbox" {...register("terms")} />
-          {errors.terms && <p>{errors.terms.message}</p>}
+          {errors.terms ? (
+            <p>{errors.terms.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
           <label>Image:</label>
           <input type="file" name="file" onChange={handleFileChange} />
 
-          {errors.image && <p>{errors.image.message}</p>}
+          {errors.image ? (
+            <p>{errors.image.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -128,7 +160,11 @@ function HookForm() {
               <option key={index} value={country} />
             ))}
           </datalist>
-          {errors.country && <p>{errors.country.message}</p>}
+          {errors.country ? (
+            <p>{errors.country.message}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
       </div>
 

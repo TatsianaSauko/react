@@ -109,7 +109,11 @@ function UncontrolledForm() {
             onChange={handleChange}
             placeholder="Name"
           />
-          {errors.name && <p>{errors.name}</p>}
+          {errors.name ? (
+            <p>{errors.name}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -120,7 +124,11 @@ function UncontrolledForm() {
             onChange={handleChange}
             placeholder="Age"
           />
-          {errors.age && <p>{errors.age}</p>}
+          {errors.age ? (
+            <p>{errors.age}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -131,7 +139,11 @@ function UncontrolledForm() {
             onChange={handleChange}
             placeholder="Email"
           />
-          {errors.email && <p>{errors.email}</p>}
+          {errors.email ? (
+            <p>{errors.email}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -142,7 +154,11 @@ function UncontrolledForm() {
             onChange={handleChange}
             placeholder="Password"
           />
-          {errors.password && <p>{errors.password}</p>}
+          {errors.password ? (
+            <p>{errors.password}</p>
+          ) : (
+            <p className="hidden height">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -153,7 +169,11 @@ function UncontrolledForm() {
             onChange={handleChange}
             placeholder="Repeat Password"
           />
-          {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+          {errors.confirmPassword ? (
+            <p>{errors.confirmPassword}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -167,19 +187,31 @@ function UncontrolledForm() {
             <option value="male">male</option>
             <option value="other">other</option>
           </select>
-          {errors.gender && <p>{errors.gender}</p>}
+          {errors.gender ? (
+            <p>{errors.gender}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
           <label> Accept Terms and Conditions </label>
           <input type="checkbox" name="terms" onChange={handleChange} />
-          {errors.terms && <p>{errors.terms}</p>}
+          {errors.terms ? (
+            <p>{errors.terms}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
           <label>Image:</label>
           <input type="file" name="file" onChange={handleFileChange} />
-          {errors.image && <p>{errors.image}</p>}
+          {errors.image ? (
+            <p>{errors.image}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -198,7 +230,11 @@ function UncontrolledForm() {
               </option>
             ))}
           </datalist>
-          {errors.country && <p>{errors.country}</p>}
+          {errors.country ? (
+            <p>{errors.country}</p>
+          ) : (
+            <p className="hidden">Placeholder</p>
+          )}
         </div>
       </div>
       <input
