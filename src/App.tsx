@@ -9,22 +9,28 @@ export default function App() {
     <Router>
       <div>
         <nav>
-          <ul>
+          <ul className="menu">
             <li>
-              <Link to="/">Main</Link>
+              <Link className="link" to="/">
+                Main Page
+              </Link>
             </li>
             <li>
-              <Link to="/form1">Form 1</Link>
+              <Link className="link" to="/formPage">
+                FormPage
+              </Link>
             </li>
             <li>
-              <Link to="/form2">Form 2</Link>
+              <Link className="link" to="/hookFormPage">
+                HookFormPage
+              </Link>
             </li>
           </ul>
         </nav>
 
         <Routes>
-          <Route path="/form1" element={<UncontrolledForm />} />
-          <Route path="/form2" element={<HookForm />} />
+          <Route path="/formPage" element={<UncontrolledForm />} />
+          <Route path="/hookFormPage" element={<HookForm />} />
           <Route path="/" element={<Main />} />
         </Routes>
       </div>

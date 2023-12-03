@@ -18,7 +18,7 @@ function HookForm() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
   const {
     saveFormName,
     saveFormAge,

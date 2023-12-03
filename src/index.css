@@ -109,3 +109,27 @@ a {
 .height {
   height: 38.18px;
 }
+
+.image {
+  width: 50%;
+  height: auto;
+}
+
+.link {
+  padding: 5px;
+  background-color: #6161a1;
+  border: 2px solid gray;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.5s ease;
+}
+
+.link:hover {
+  background-color: #6565e1;
+}
+
+.menu {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}

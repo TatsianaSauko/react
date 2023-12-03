@@ -44,6 +44,11 @@ export default function Main() {
               <li>Password: {password[index]}</li>
               <li>Gender: {gender[index]}</li>
               <li>Country: {country[index]}</li>
+              <li>T&C: true</li>
+              <li>Image: </li>
+              <li>
+                <img className="image" src={image[index]} alt="image" />
+              </li>
               {image[index] && (
                 <li>
                   <a href={downloadLink} download={`image.${fileType}`}>
